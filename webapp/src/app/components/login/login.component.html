@@ -17,23 +17,23 @@
         </div>
         <div class="title">Welcome</div>
         <div class="form">
-          <form action="">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="role">
                 <div class="vendor">Vendor</div>
                 <div class="user">User</div>
                 <div class="admin">Admin</div>
             </div>
             <mat-slider min="1" max="3" step="1" value="2">
-              <input matSliderThumb />
+              <input matSliderThumb formControlName="role"/>
             </mat-slider>
             <mat-form-field>
               <mat-label>Username</mat-label>
-              <input matInput />
+              <input matInput formControlName="username"/>
             </mat-form-field>
             <br />
             <mat-form-field>
               <mat-label>Password</mat-label>
-              <input matInput />
+              <input matInput type="password" formControlName="password"/>
             </mat-form-field>
             <div class="forgot-password">Forgot password?</div>
             <button type="submit">Login</button>
