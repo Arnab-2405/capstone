@@ -9,11 +9,11 @@
     <div class="container">
       <div class="left-window">
         <div class="shape"></div>
-        <img src="../../../assets/images/login-art.svg" alt="" srcset="" />
+        <img src="assets/images/login-art.svg" alt="" srcset="" />
       </div>
       <div class="right-window">
         <div class="icon">
-          <img src="../../../assets/images/avatar.svg" alt="" srcset="" />
+          <img src="assets/images/avatar.svg" alt="" srcset="" />
         </div>
         <div class="title">Welcome</div>
         <div class="form">
@@ -35,9 +35,9 @@
               <mat-label>Password</mat-label>
               <input matInput type="password" formControlName="password"/>
             </mat-form-field>
-            <div class="forgot-password">Forgot password?</div>
-            <button type="submit">Login</button>
-            <div class="new-user">New User?</div>
+            <div class="forgot-password" (click)="gotoForgotPass()">Forgot password?</div>
+            <button type="submit" [disabled]="!loginForm.valid">Login</button>
+            <div class="new-user" (click)="gotoSignup()">New User?</div>
           </form>
         </div>
       </div>

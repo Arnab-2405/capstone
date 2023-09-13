@@ -13,11 +13,19 @@ import {MatSliderModule} from '@angular/material/slider';
 import {HttpClientModule} from '@angular/common/http';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { SignupComponent } from './components/signup/signup.component';
+import { LandingVendorComponent } from './components/landing-vendor/landing-vendor.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent,
+    LandingVendorComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +35,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatSliderModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
