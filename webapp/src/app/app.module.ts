@@ -18,6 +18,13 @@ import { RouterModule } from '@angular/router';
 import { SignupComponent } from './components/signup/signup.component';
 import { LandingVendorComponent } from './components/landing-vendor/landing-vendor.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { VendorCardComponent } from './components/vendor-card/vendor-card.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -25,7 +32,8 @@ import { HeaderComponent } from './components/header/header.component';
     LoginComponent,
     SignupComponent,
     LandingVendorComponent,
-    HeaderComponent
+    HeaderComponent,
+    VendorCardComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +45,13 @@ import { HeaderComponent } from './components/header/header.component';
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

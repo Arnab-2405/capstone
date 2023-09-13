@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   {
     path: 'landing',
-    children: [{ path: 'vendor', component: LandingVendorComponent }],
+    children: [{ path: 'user', component: LandingVendorComponent }],
   },
 ];
 

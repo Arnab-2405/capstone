@@ -1,6 +1,6 @@
 .header {
+  width: 100vw;
   display: flex;
-  justify-content: space-around;
   background: rgb(39, 183, 134);
   background: linear-gradient(
     0deg,
@@ -9,9 +9,13 @@
     rgba(50, 215, 157, 1) 100%
   );
   height: 10%;
+  box-shadow: 0px 0px 20px #000;
 }
 .company-icon {
-  flex-basis: content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-basis: 10%;
   flex-shrink: 0;
   flex-grow: 0;
   height: 100%;
@@ -24,11 +28,11 @@
 }
 
 .company-name {
-  flex-basis: content;
+  flex-basis: 15%;
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   font-size: 2rem;
   font-weight: 600;
@@ -36,8 +40,6 @@
 }
 
 .search-bar {
-  padding-left: 5%;
-  padding-right: 5%;
   flex-basis: 50%;
   flex-shrink: 0;
   flex-grow: 0;
@@ -45,53 +47,41 @@
   justify-content: center;
   align-items: center;
 }
-
+.input-group {
+  width: 80%;
+}
 .btn {
   color: #fff;
   background: #0055b3;
 }
 
-.about-us,
-.contact-us {
-  flex-basis: content;
-  flex-shrink: 0;
-  flex-grow: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #000;
-  font-size: 1.2rem;
-  font-weight: 450;
-}
-
 .profile {
-  flex-basis: content;
+  flex-basis: 25%;
   flex-shrink: 0;
   flex-grow: 0;
   height: 100%;
   display: flex;
 }
+.current-user-name {
+  flex-basis: 70%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #000;
+  font-weight: 550;
+}
 .user-icon {
-  flex-basis: 80%;
+  flex-basis: 30%;
   flex-shrink: 0;
   flex-grow: 0;
 }
 
 .user-icon img {
-  clip-path: circle(45% at 50% 50%);
+  clip-path: circle(35% at 50% 50%);
   object-fit: contain;
   width: 100%;
   height: 100%;
-}
-
-.current-user-name {
-  flex-basis: content;
-  flex-shrink: 0;
-  flex-grow: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  color: #000;
-  font-weight: 550;
 }

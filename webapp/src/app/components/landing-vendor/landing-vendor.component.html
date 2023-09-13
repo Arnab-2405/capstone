@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- TODO Add user edit, about us, contact us section, scroll to top button, implement book now service -->
     <app-header></app-header>
     <div class="container">
-        <div class="nav-section">1</div>
-        <div class="display-data">2
-            <!-- TODO GENERATE CARD BASED ON VENDOR DATA -->
-        </div>
+      <div class="grid-item" *ngFor="let vendor of vendorList">
+        <app-vendor-card [data]="vendor"></app-vendor-card>
+      </div>
     </div>
-</body>
+  </body>
 </html>
