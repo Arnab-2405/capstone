@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    height: fit-content;
+}
+.nav-section{
+    flex-basis: 20%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: inherit;
+}
+.display-data{
+    flex-basis: 70%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: inherit;
+}
