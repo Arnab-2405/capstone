@@ -26,7 +26,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import { BookingComponent } from './components/booking/booking.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { PaymentComponent } from './components/payment/payment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { BookingComponent } from './components/booking/booking.component';
     LandingVendorComponent,
     HeaderComponent,
     VendorCardComponent,
-    BookingComponent
+    BookingComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,9 @@ import { BookingComponent } from './components/booking/booking.component';
     MatProgressBarModule,
     MatButtonModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

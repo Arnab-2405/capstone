@@ -45,8 +45,7 @@ export class LoginComponent {
     this.role = localStorage.getItem('role');
 
     if (this.role === 'vendor') {
-      //TODO
-      //CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
+      //TODO CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
       this.http.post('http://localhost:port/change', this.loginForm.value, { responseType: 'text' }).subscribe({
         next: (v) => {
           const temp = v.split(" ");
@@ -60,8 +59,7 @@ export class LoginComponent {
       })
     }
     else if(this.role==='user'){
-      //TODO
-      //CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
+      //TODO CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
       this.http.post('http://localhost:port/change', this.loginForm.value, { responseType: 'text' }).subscribe({
         next: (v) => {
           const temp = v.split(" ");
@@ -76,8 +74,7 @@ export class LoginComponent {
     }
     else{
 
-      // TODO
-      //CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
+      // TODO CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
       this.http.post('http://localhost:port/change', this.loginForm.value, { responseType: 'text' }).subscribe({
         next: (v) => {
           const temp = v.split(" ");

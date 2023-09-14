@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { LandingVendorComponent } from '../landing-vendor/landing-vendor.component';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-vendor-card',
@@ -7,9 +8,10 @@ import { LandingVendorComponent } from '../landing-vendor/landing-vendor.compone
   styleUrls: ['./vendor-card.component.css'],
 })
 export class VendorCardComponent {
-  constructor(private landing: LandingVendorComponent) {}
+  constructor(private landing: LandingVendorComponent, private sharingService: SharedDataService) { }
 
   openBooking() {
+    this.sharingService.setSharedDate(this.data);
     this.landing.popup = true;
   }
 
@@ -25,8 +27,6 @@ export class VendorCardComponent {
     Electrician: 'assets/images/avatar-vendor-2.png',
     Plumbing: 'assets/images/avatar-vendor-3.png',
     Painting: 'assets/images/avatar-vendor-1.png',
-
-    // Add more mappings as needed
   };
 
   serviceTypeImages: { [key: string]: string } = {
@@ -35,11 +35,8 @@ export class VendorCardComponent {
     Electrician: 'assets/images/electrician.svg',
     Plumbing: 'assets/images/plumbing.svg',
     Painting: 'assets/images/painting.svg',
-
-    // Add more mappings as needed
   };
 
-  // TODO Change date posted format from number to date, same for other dates
   ngOnInit() {
     const monthNames = [
       'Jan',
