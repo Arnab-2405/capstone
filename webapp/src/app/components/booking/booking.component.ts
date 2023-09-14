@@ -31,7 +31,7 @@ export class BookingComponent {
 
     this.datesToDisable = []
     for (var i = 0; i < length; i++) {
-      this.datesToDisable.push(new Date(this.sharedData.bookedDates[i].blockedDate));
+      this.datesToDisable.push(new Date(this.sharedData.bookedDates[i].blockedDate.toDateString()));
     }
 
     this.minDate = new Date(this.sharedData.startDate);

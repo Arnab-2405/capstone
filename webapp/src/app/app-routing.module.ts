@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LandingVendorComponent } from './components/landing-vendor/landing-vendor.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,7 +14,11 @@ const routes: Routes = [
     path: 'landing',
     children: [{ path: 'user', component: LandingVendorComponent }],
   },
-  { path: 'payment', component: PaymentComponent }
+  { path: 'payment', component: PaymentComponent },
+  {
+    path: 'admin',
+    children: [{path:'dashboard', component:AdminViewComponent}]
+  }
 ];
 
 @NgModule({
