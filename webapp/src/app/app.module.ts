@@ -25,6 +25,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
+import { BookingComponent } from './components/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MatCardModule} from '@angular/material/card';
     SignupComponent,
     LandingVendorComponent,
     HeaderComponent,
-    VendorCardComponent
+    VendorCardComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,

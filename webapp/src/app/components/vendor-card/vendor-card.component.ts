@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LandingVendorComponent } from '../landing-vendor/landing-vendor.component';
 
 @Component({
   selector: 'app-vendor-card',
@@ -6,6 +7,12 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./vendor-card.component.css'],
 })
 export class VendorCardComponent {
+  constructor(private landing: LandingVendorComponent) {}
+
+  openBooking() {
+    this.landing.popup = true;
+  }
+
   @Input() data: any;
 
   public startDate: any;

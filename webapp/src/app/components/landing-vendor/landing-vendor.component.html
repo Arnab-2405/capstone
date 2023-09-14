@@ -12,6 +12,11 @@
       <div class="grid-item" *ngFor="let vendor of vendorList">
         <app-vendor-card [data]="vendor"></app-vendor-card>
       </div>
+      <button class="scroll-to-top-button" id="scroll" (click)="scrollToTop()">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
     </div>
+
+    <app-booking *ngIf="popup"></app-booking>
   </body>
 </html>
