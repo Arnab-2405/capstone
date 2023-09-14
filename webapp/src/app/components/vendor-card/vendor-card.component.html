@@ -1,24 +1,40 @@
-TODO
+<!-- TODO -->
 <!-- Add vendor details, change styling , change images based on serviceType -->
 <mat-card class="card">
   <mat-card-header>
-    <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <div
+      mat-card-avatar
+      class="header-image"
+      [style.background-image]="
+        'url(' + serviceTypeAvatarImages[data.serviceType] + ')'
+      "
+    ></div>
+    <mat-card-title>{{ data.serviceType }}</mat-card-title>
+    <mat-card-subtitle>{{ data.vendorName }}</mat-card-subtitle>
   </mat-card-header>
   <img
     mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    *ngIf="serviceTypeImages[data.serviceType]"
+    [src]="serviceTypeImages[data.serviceType]"
     alt="Photo of a Shiba Inu"
   />
   <mat-card-content>
     <div class="grid">
-        <div class="date-posted">Date Posted:  </div>
-        <div class="price">Price: Rs</div>
-        <div class="vendor-name">Vendor Name: </div>
-        <div></div>
-        <div class="available-from">Available From: </div>
-        <div class="available-till">Available Till: </div>
+      <div class="date-posted">
+        <mat-icon>date_range</mat-icon>Date Posted: <span>{{ datePosted }}</span>
+      </div>
+      <div class="price">&#8377;{{ data.price }}</div>
+      <div class="available-from">
+        <mat-icon>date_range</mat-icon>
+        Available From: <span>{{ startDate }}</span>
+      </div>
+      <div class="available-till">
+        <mat-icon>date_range</mat-icon>
+        Available Till: <span>{{ endDate }}</span>
+      </div>
+      <div class="location">
+        <mat-icon> location_on</mat-icon>{{ data.location }}
+      </div>
     </div>
     <mat-divider></mat-divider>
   </mat-card-content>

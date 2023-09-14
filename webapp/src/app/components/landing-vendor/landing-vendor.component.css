@@ -1,13 +1,18 @@
 .container{
     display: grid;
-    grid-template-columns: auto auto auto ;
+    grid-template-columns: auto auto auto auto ;
     grid-row-gap: 5vh;
+    grid-column-gap: 5vh;
     justify-content: space-around;
     padding-top: 5%;
-    height: fit-content;
+    height: max-content;
 }
 
 .grid-item{
     width: 20rem;
     height: fit-content;
+}
+
+body{
+    height: max-content;
 }
