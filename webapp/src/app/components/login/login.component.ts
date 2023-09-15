@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private vendorData: VendorDataService) { }
 
   public loginForm!: FormGroup;
   public role: any;
@@ -18,16 +19,16 @@ export class LoginComponent {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       role: 2,
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required,Validators.email]],
+      passwordHash: ['', Validators.required]
     })
   }
 
-  gotoForgotPass(){
+  gotoForgotPass() {
     this.router.navigate(['']) //TODO Navigate to reset password
   }
 
-  gotoSignup(){
+  gotoSignup() {
     this.router.navigate(['signup'])
   }
 
@@ -38,56 +39,36 @@ export class LoginComponent {
     else if (this.loginForm.value.role === 2) {
       this.loginForm.patchValue({ role: 'user' });
     }
-    else if(this.loginForm.value.role === 3){
+    else if (this.loginForm.value.role === 3) {
       this.loginForm.patchValue({ role: 'admin' });
     }
     localStorage.setItem('role', this.loginForm.value.role);
     this.role = localStorage.getItem('role');
 
-    if (this.role === 'vendor') {
-      //TODO CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
-      this.http.post('http://localhost:port/change', this.loginForm.value, { responseType: 'text' }).subscribe({
-        next: (v) => {
-          const temp = v.split(" ");
-          const token = temp[0];
-          const username = temp[1];
-          localStorage.setItem('token', token);
-          localStorage.setItem('username', username);
-        },
-        error: (e) => { },
-        complete: () => { this.router.navigate(['landing','vendor']); }
-      })
-    }
-    else if(this.role==='user'){
-      //TODO CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
-      this.http.post('http://localhost:port/change', this.loginForm.value, { responseType: 'text' }).subscribe({
-        next: (v) => {
-          const temp = v.split(" ");
-          const token = temp[0];
-          const username = temp[1];
-          localStorage.setItem('token', token);
-          localStorage.setItem('username', username);
-        },
-        error: (e) => { },
-        complete: () => { this.router.navigate(['']) }
-      })
-    }
-    else{
+    this.vendorData.login(this.loginForm.value).subscribe({
+      next: (v) => {
+        const temp = v.split(" ");
+        const token = temp[0];
+        const username = temp[1];
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
 
-      // TODO CHANGE THE PORTS & NAVIGATION WINDOW WHEN INTEGRATING BACKEND
-      this.http.post('http://localhost:port/change', this.loginForm.value, { responseType: 'text' }).subscribe({
-        next: (v) => {
-          const temp = v.split(" ");
-          const token = temp[0];
-          const username = temp[1];
-          localStorage.setItem('token', token);
-          localStorage.setItem('username', username);
-        },
-        error: (e) => { },
-        complete: () => { this.router.navigate(['']) }
-      })
-    }
-    console.log(this.loginForm.value)
-    this.loginForm.reset();
+        if (this.loginForm.value.role === 'vendor') {
+          this.router.navigate(['landing', 'vendor']);
+        } else if (this.loginForm.value.role === 'user') {
+          this.router.navigate(['landing', 'user']);
+        } else if (this.loginForm.value.role === 'admin') {
+          this.router.navigate(['admin', 'dashboard'])
+        } else {
+          this.router.navigate([''])
+        }
+      },
+      error: (e) => { 
+        
+      },
+      complete: () => {
+        this.loginForm.reset();
+      }
+    });
   }
 }

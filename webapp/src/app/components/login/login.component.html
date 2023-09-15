@@ -27,13 +27,13 @@
               <input matSliderThumb formControlName="role"/>
             </mat-slider>
             <mat-form-field>
-              <mat-label>Username</mat-label>
-              <input matInput formControlName="username"/>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email"/>
             </mat-form-field>
             <br />
             <mat-form-field>
               <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password"/>
+              <input matInput type="password" formControlName="passwordHash"/>
             </mat-form-field>
             <div class="forgot-password" (click)="gotoForgotPass()">Forgot password?</div>
             <button type="submit" [disabled]="!loginForm.valid">Login</button>

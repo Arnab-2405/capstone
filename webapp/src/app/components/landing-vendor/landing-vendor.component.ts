@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener } from '@angular/core';
+import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
   selector: 'app-landing-vendor',
@@ -11,10 +12,15 @@ export class LandingVendorComponent {
 
   public popup:boolean=false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private data:VendorDataService) {}
 
   ngOnInit() {
-    this.http.get('http://localhost:9090/vendor-data/').subscribe({
+    const token=localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.data.getVendorData(headers).subscribe({
       next: (v) => {
         this.vendorList = v;
       },

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private vendor:VendorDataService) { }
 
   public registerForm!: FormGroup;
 
@@ -18,8 +19,8 @@ export class SignupComponent {
       role: 2,
       name:['',Validators.required],
       email:['',Validators.email],
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      userName: ['', Validators.required],
+      passwordHash: ['', Validators.required]
     })
   }
 
@@ -40,19 +41,11 @@ export class SignupComponent {
     console.log(this.registerForm.value)
 
     //TODO CHANGE API & ROUTING
-    this.http.post('http://localhost:port/path',this.registerForm.value,{responseType:'text'}).subscribe({
-      next:(v)=>{},
-      error:(e)=>{},
+    this.vendor.signup(this.registerForm.value).subscribe({
+      next:(v)=>{console.log(v)},
+      error:(e)=>{console.log(e)},
       complete:()=>{
-        if(this.registerForm.value.role==='vendor'){
-          this.router.navigate(['']) //TODO
-        }
-        else if(this.registerForm.value.role==='user'){
-          this.router.navigate(['']) //TODO
-        }
-        else{
-          this.router.navigate(['']) //TODO
-        }
+        this.router.navigate(['login'])
       }
     })
   }
