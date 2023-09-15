@@ -1,6 +1,6 @@
 footer {
-    margin-top: 5%;
-  background-color: #384B42;
+  margin-top: 5%;
+  background-color: #384b42;
   color: #fff;
 }
 
@@ -23,7 +23,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
 ul.list-unstyled li a i {
   margin-right: 5px;
   color: rgb(39, 183, 134);
@@ -43,4 +42,24 @@ ul.list-unstyled li a i {
   font-size: 14px;
   margin: 5px 0;
   color: rgb(39, 183, 134); /* Use the accent color for contact info */
+}
+
+.scroll-to-top-button {
+  width: 6vh;
+  height: 6vh;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 10;
+  background-color: #1cd57c;
+  color: #fff;
+  border: none;
+  border-radius: 60%;
+  cursor: pointer;
+  display: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.scroll-to-top-button:hover {
+  background-color: #00525d;
 }

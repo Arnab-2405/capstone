@@ -6,11 +6,15 @@ import { LandingVendorComponent } from './components/landing-vendor/landing-vend
 import { PaymentComponent } from './components/payment/payment.component';
 import { AdminViewComponent } from './components/admin-view/admin-view.component';
 import { LandingActualVendorComponent } from './components/landing-actual-vendor/landing-actual-vendor.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  {path:'contact-us',component:ContactUsComponent},
+  {path:'about-us',component:AboutUsComponent},
   {
     path: 'landing',
     children: [

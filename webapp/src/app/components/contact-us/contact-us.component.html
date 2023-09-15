@@ -1,0 +1,25 @@
+<!-- contact-us.component.html -->
+<div class="background">
+    <div class="form-container">
+      <h2>Contact Us</h2>
+      <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="comments">Comments</label>
+          <textarea id="comments" name="comments" ></textarea>
+        </div>
+        <button type="submit" [disabled]="isFormSubmitted">Send</button>
+      </form>
+      <div *ngIf="isFormSubmitted" class="success-message">
+        <i class="fa fa-check-circle"></i> We received your email. We will contact you shortly.
+      </div>
+    </div>
+  </div>
+  

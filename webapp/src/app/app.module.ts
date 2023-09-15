@@ -33,6 +33,8 @@ import { AdminViewComponent } from './components/admin-view/admin-view.component
 import { MapComponent } from './components/map/map.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingActualVendorComponent } from './components/landing-actual-vendor/landing-actual-vendor.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,9 @@ import { LandingActualVendorComponent } from './components/landing-actual-vendor
     AdminViewComponent,
     MapComponent,
     FooterComponent,
-    LandingActualVendorComponent
+    LandingActualVendorComponent,
+    ContactUsComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
