@@ -1,0 +1,43 @@
+*{
+    border: 1px solid red;
+}
+
+.content{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    border: 0%;
+}
+
+.navigation{
+    flex-basis: 15%;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard{
+    flex-basis: 85%;
+}
+.user-base{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+    height: min-content;
+}
+
+.user-pie,.vendor-pie{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label,h2{
+    text-align: center;
+}
+h2{
+    border: 0;
+}

@@ -1,1 +1,37 @@
-<p>admin-view works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="content">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li>
+            <a href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="dashboard">
+        <header>Dashboard</header>
+        <div class="user-base">
+          <label for="">Registered Users</label>
+          <label for="">Registered Vendors</label>
+          <h2 class="counter-numbers">0+</h2>
+          <h2 class="counter-numbers">{{ vendorBase }}+</h2>
+        </div>
+
+        <div class="pie-chart user-base">
+            <div class="user-pie">1</div>
+            <div class="vendor-pie">2</div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -30,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { MapComponent } from './components/map/map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { AdminViewComponent } from './components/admin-view/admin-view.component
     VendorCardComponent,
     BookingComponent,
     PaymentComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
