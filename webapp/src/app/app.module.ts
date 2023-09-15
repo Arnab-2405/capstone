@@ -31,6 +31,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AdminViewComponent } from './components/admin-view/admin-view.component';
 import { MapComponent } from './components/map/map.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LandingActualVendorComponent } from './components/landing-actual-vendor/landing-actual-vendor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,9 @@ import { MapComponent } from './components/map/map.component';
     BookingComponent,
     PaymentComponent,
     AdminViewComponent,
-    MapComponent
+    MapComponent,
+    FooterComponent,
+    LandingActualVendorComponent
   ],
   imports: [
     BrowserModule,

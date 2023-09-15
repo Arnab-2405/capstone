@@ -5,6 +5,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LandingVendorComponent } from './components/landing-vendor/landing-vendor.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { LandingActualVendorComponent } from './components/landing-actual-vendor/landing-actual-vendor.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -12,17 +13,20 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   {
     path: 'landing',
-    children: [{ path: 'user', component: LandingVendorComponent }],
+    children: [
+      { path: 'user', component: LandingVendorComponent },
+      { path: 'vendor', component: LandingActualVendorComponent },
+    ],
   },
   { path: 'payment', component: PaymentComponent },
   {
     path: 'admin',
-    children: [{path:'dashboard', component:AdminViewComponent}]
-  }
+    children: [{ path: 'dashboard', component: AdminViewComponent }],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
