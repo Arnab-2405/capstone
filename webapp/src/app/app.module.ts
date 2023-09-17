@@ -35,6 +35,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LandingActualVendorComponent } from './components/landing-actual-vendor/landing-actual-vendor.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +52,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     FooterComponent,
     LandingActualVendorComponent,
     ContactUsComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     BrowserModule,

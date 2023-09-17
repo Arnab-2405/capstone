@@ -1,0 +1,68 @@
+.close-btn{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: fit-content;
+    height: fit-content;
+
+}
+.content {
+  padding-top: 2vh;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sub-content {
+  width: 80%;
+  height: fit-content;
+}
+
+.icon {
+  width: 100%;
+  height: fit-content;
+  padding: 2%;
+}
+
+img {
+  width: 100%;
+  object-fit: contain;
+  height: 20vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1%;
+}
+
+mat-form-field {
+  margin: 1%;
+}
+
+button {
+  margin-bottom: 5%;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  grid-column: span 2;
+  width: 100%;
+}
+
+button {
+  width: 20vw;
+  height: 5vh;
+}

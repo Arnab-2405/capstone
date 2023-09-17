@@ -8,6 +8,7 @@ import { AdminViewComponent } from './components/admin-view/admin-view.component
 import { LandingActualVendorComponent } from './components/landing-actual-vendor/landing-actual-vendor.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   {path:'contact-us',component:ContactUsComponent},
   {path:'about-us',component:AboutUsComponent},
+  {path:'update-profile',component:UpdateProfileComponent},
   {
     path: 'landing',
     children: [

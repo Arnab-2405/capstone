@@ -17,8 +17,8 @@ export class VendorDataService {
     return this.http.post('http://localhost:8062/auth/signup',data,{responseType:'text'});
   }
 
-  getVendorData(headers:any):Observable<any>{
-    return this.http.get('http://localhost:9090/vendor-data/',{headers});
+  getVendorData(headersData:any):Observable<any>{
+    return this.http.get('http://localhost:9090/vendor-data/',{headers:headersData});
   }
-
+  
 }

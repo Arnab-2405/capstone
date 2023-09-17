@@ -16,7 +16,7 @@
 }
 .company-icon {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   flex-basis: 10%;
   flex-shrink: 0;
@@ -35,7 +35,7 @@
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   font-size: 2rem;
   font-weight: 600;
@@ -70,7 +70,7 @@
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   font-size: 1.5rem;
   color: #000;

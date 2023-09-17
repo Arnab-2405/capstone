@@ -10,22 +10,21 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
 export class LandingVendorComponent {
   public vendorList: any;
 
-  public popup:boolean=false;
+  public popup: boolean = false;
 
-  constructor(private data:VendorDataService) {}
+  constructor(private data: VendorDataService) { }
 
   ngOnInit() {
-    const token=localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-
     this.data.getVendorData(headers).subscribe({
       next: (v) => {
         this.vendorList = v;
       },
       error: (e) => {},
-      complete: () => {},
+      complete: () => { },
     });
   }
 

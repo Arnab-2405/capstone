@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
+import { UserDataService } from 'src/app/services/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private vendorData: VendorDataService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private vendorData: VendorDataService, private userData: UserDataService) { }
 
   public loginForm!: FormGroup;
   public role: any;
@@ -19,7 +20,7 @@ export class LoginComponent {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       role: 2,
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       passwordHash: ['', Validators.required]
     })
   }
@@ -52,10 +53,27 @@ export class LoginComponent {
         const username = temp[1];
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
+        localStorage.setItem('email', this.loginForm.value.email)
 
         if (this.loginForm.value.role === 'vendor') {
           this.router.navigate(['landing', 'vendor']);
         } else if (this.loginForm.value.role === 'user') {
+          this.userData.firstLogin(this.loginForm.value.email).subscribe({
+            next: (v) => {
+              localStorage.setItem('secondLogin', v.firstLoginDone)
+              if (v.firstLoginDone) {
+                this.router.navigate(['landing', 'user']);
+              }
+              else {
+                this.router.navigate(['update-profile'])
+              }
+            },
+            error: (e) => {
+            },
+            complete: () => {
+
+            }
+          })
           this.router.navigate(['landing', 'user']);
         } else if (this.loginForm.value.role === 'admin') {
           this.router.navigate(['admin', 'dashboard'])
@@ -63,8 +81,8 @@ export class LoginComponent {
           this.router.navigate([''])
         }
       },
-      error: (e) => { 
-        
+      error: (e) => {
+
       },
       complete: () => {
         this.loginForm.reset();
