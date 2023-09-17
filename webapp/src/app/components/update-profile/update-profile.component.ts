@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,6 +17,10 @@ export class UpdateProfileComponent {
 
   public authData: any;
   public userData: any;
+
+  public headers = new HttpHeaders({
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  });
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
@@ -37,7 +42,7 @@ export class UpdateProfileComponent {
     var secondLogin = localStorage.getItem('secondLogin');
 
     if (secondLogin === "true") {
-      this.data.updateUserData(this.userForm.value, localStorage.getItem('email')).subscribe({
+      this.data.updateUserData(this.userForm.value, localStorage.getItem('email'),this.headers).subscribe({
         next: (v) => {
           const birth = new Date(v.dob)
           this.userForm = this.formBuilder.group({
@@ -51,7 +56,7 @@ export class UpdateProfileComponent {
         complete: () => { }
       })
 
-      this.data.updateAuthData(this.authForm.value, localStorage.getItem('email')).subscribe({
+      this.data.updateAuthData(this.authForm.value, localStorage.getItem('email'),this.headers).subscribe({
         next: (v) => {
           this.authForm = this.formBuilder.group({
             name: [v.name, [Validators.required]],
@@ -64,7 +69,7 @@ export class UpdateProfileComponent {
       })
     }
     else {
-      this.data.addUserData({ ...this.userForm.value, email: localStorage.getItem('email') }).subscribe({
+      this.data.addUserData({ ...this.userForm.value, email: localStorage.getItem('email') },this.headers).subscribe({
         next: (v) => {
 
           const birth = new Date(v.dob)
@@ -87,7 +92,7 @@ export class UpdateProfileComponent {
   }
 
   getDataFromBackend() {
-    this.data.getAuthData(localStorage.getItem('email')).subscribe({
+    this.data.getAuthData(localStorage.getItem('email'),this.headers).subscribe({
       next: (v) => {
         this.authData = v;
         this.authForm = this.formBuilder.group({
@@ -101,7 +106,7 @@ export class UpdateProfileComponent {
       complete: () => {
       }
     })
-    this.data.getUserData(localStorage.getItem('email')).subscribe({
+    this.data.getUserData(localStorage.getItem('email'),this.headers).subscribe({
       next: (v) => {
         this.userData = v;
         const birth = new Date(v.dob)

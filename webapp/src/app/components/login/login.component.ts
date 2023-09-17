@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 import { UserDataService } from 'src/app/services/user-data.service';
@@ -58,7 +58,10 @@ export class LoginComponent {
         if (this.loginForm.value.role === 'vendor') {
           this.router.navigate(['landing', 'vendor']);
         } else if (this.loginForm.value.role === 'user') {
-          this.userData.firstLogin(this.loginForm.value.email).subscribe({
+          const headers = new HttpHeaders({
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          });
+          this.userData.firstLogin(this.loginForm.value.email,headers).subscribe({
             next: (v) => {
               localStorage.setItem('secondLogin', v.firstLoginDone)
               if (v.firstLoginDone) {

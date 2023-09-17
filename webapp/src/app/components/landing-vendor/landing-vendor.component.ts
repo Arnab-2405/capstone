@@ -15,9 +15,8 @@ export class LandingVendorComponent {
   constructor(private data: VendorDataService) { }
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
     this.data.getVendorData(headers).subscribe({
       next: (v) => {

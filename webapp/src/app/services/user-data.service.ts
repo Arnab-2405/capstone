@@ -8,27 +8,27 @@ export class UserDataService {
 
   constructor(private http: HttpClient) { }
 
-  firstLogin(email: any) {
-    return this.http.get<any>(`http://localhost:8082/user-data/${email}`);
+  firstLogin(email: any,headersData:any) {
+    return this.http.get<any>(`http://localhost:8082/user-data/${email}`,{headers:headersData});
   }
 
-  getAuthData(email: any) {
-    return this.http.get<any>(`http://localhost:8062/auth-data/${email}`)
+  getAuthData(email: any,headersData:any) {
+    return this.http.get<any>(`http://localhost:8062/auth-data/${email}`,{headers:headersData})
   }
 
-  getUserData(email: any) {
-    return this.http.get<any>(`http://localhost:8082/user-data/${email}`);
+  getUserData(email: any,headersData:any) {
+    return this.http.get<any>(`http://localhost:8082/user-data/${email}`,{headers:headersData});
   }
 
-  updateUserData(data: any, email: any) {
-    return this.http.put<any>(`http://localhost:8082/user-data/${email}`, data);
+  updateUserData(data: any, email: any,headersData:any) {
+    return this.http.put<any>(`http://localhost:8082/user-data/${email}`, data,{headers:headersData});
   }
 
-  updateAuthData(data: any, email: any) {
-    return this.http.put<any>(`http://localhost:8062/auth-data/${email}`, data);
+  updateAuthData(data: any, email: any,headersData:any) {
+    return this.http.put<any>(`http://localhost:8062/auth-data/${email}`, data,{headers:headersData});
   }
 
-  addUserData(data: any) {
-    return this.http.post<any>(`http://localhost:8082/user-data/add`, data);
+  addUserData(data: any,headersData:any) {
+    return this.http.post<any>(`http://localhost:8082/user-data/add`, data,{headers:headersData});
   }
 }
