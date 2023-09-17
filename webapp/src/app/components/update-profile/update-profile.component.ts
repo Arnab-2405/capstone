@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/services/user-data.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-update-profile',
@@ -10,7 +11,7 @@ import { UserDataService } from 'src/app/services/user-data.service';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent {
-  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router,private location: Location) { }
 
   public authForm!: FormGroup;
   public userForm!: FormGroup;
@@ -36,6 +37,10 @@ export class UpdateProfileComponent {
     })
 
     this.getDataFromBackend();
+  }
+
+  changeValue(){
+    this.location.back();
   }
 
   onSubmit() {

@@ -1,25 +1,52 @@
-<div class="header">
-  <div class="company-icon">
-    <img src="../../../assets/images/white-casa-logo.png" alt="" srcset="" />
-  </div>
-  <div class="company-name"><span>CasaVenturo</span></div>
-  <div class="search-bar">
-    <div class="input-group">
-      <input
-        type="search"
-        class="form-control rounded"
-        placeholder="Search"
-        aria-label="Search"
-        aria-describedby="search-addon"
-      />
-      <button type="button" class="btn">search</button>
-    </div>
-  </div>
+<!-- Html -->
 
-  <div class="profile">
-    <div class="current-user-name"><span>Hi {{username}} </span></div>
-    <div class="user-icon dropdown">
-      <img src="assets/images/avatar.svg" alt="" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Add viewport meta tag -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <img src="assets/images/black-logo.png" alt="Logo" />
+        </div>
+        <div class="spacer"></div>
+        <div class="search">
+          <input
+            type="text"
+            placeholder="What service are you looking for?"
+            class="search-field"
+          />
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-link"><a routerLink="/about-us">About Us</a></div>
+        <div class="header-link"><a routerLink="/contact-us">Contact Us</a></div>
+        <div class="profile-dropdown">
+          <div class="profile-button">
+            <img
+              src="assets/images/avatar.svg"
+              alt="My Profile"
+              style="width: 60px; height: 60px"
+            />
+          </div>
+          <div class="dropdown-content">
+            <nav class="profile-nav">
+              <ul>
+                <li><a routerLink="/update-profile">Update Profile</a></li>
+                <li><a href="#">My Orders</a></li>
+                <li><a routerLink="">Logout</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <!-- Page Content daaldio yaha -->
     </div>
-  </div>
-</div>
+  </body>
+</html>
