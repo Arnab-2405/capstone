@@ -11,6 +11,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
+import { VendorRegisterComponent } from './components/vendor-register/vendor-register.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
     children: [
       { path: 'user', component: LandingVendorComponent },
       { path: 'vendor', component: LandingActualVendorComponent },
+      { path: 'vendor-register', component: VendorRegisterComponent }
     ],
   },
   {

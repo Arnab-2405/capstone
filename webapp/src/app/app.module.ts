@@ -39,6 +39,7 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { BookingCardComponent } from './components/booking-card/booking-card.component';
+import { VendorRegisterComponent } from './components/vendor-register/vendor-register.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { BookingCardComponent } from './components/booking-card/booking-card.com
     HomepageComponent,
     UserBookingsComponent,
     BookingCardComponent,
+    VendorRegisterComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./landing-actual-vendor.component.css']
 })
 export class LandingActualVendorComponent {
+  public show:boolean=false;
 
+  change(){
+    this.show=!this.show
+  }
 }
