@@ -8,6 +8,7 @@
     background-color: #f2f2f2;
     border: 1px solid white;
     padding: 5%;
+    display: flex;
 }
 
 .close{
@@ -17,4 +18,16 @@
 }
 .close:hover{
     cursor: pointer;
+}
+
+.left{
+    flex-basis: 30%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.right{
+    flex-basis: 70%;
+    flex-grow: 0;
+    flex-shrink: 0;
 }

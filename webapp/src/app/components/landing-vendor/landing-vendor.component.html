@@ -7,7 +7,7 @@
   </head>
   <body>
     <!-- TODO Add user edit, about us, contact us section, scroll to top button, implement book now service -->
-    <app-header style="position: sticky; top: 0; z-index: 999;"></app-header>
+    <app-header style="position: sticky; top: 0; z-index: 10;"></app-header>
     <div class="container">
       <div class="grid-item" *ngFor="let vendor of vendorList">
         <app-vendor-card [data]="vendor"></app-vendor-card>
@@ -17,7 +17,7 @@
       </button>
     </div>
 
-    <app-booking *ngIf="popup"></app-booking>
+    <app-booking style="z-index: 11;" *ngIf="popup"></app-booking>
 
     <app-footer></app-footer>
   </body>

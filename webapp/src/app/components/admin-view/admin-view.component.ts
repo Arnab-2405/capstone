@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { UserDataService } from 'src/app/services/user-data.service';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
-
 
 @Component({
   selector: 'app-admin-view',
@@ -10,25 +10,34 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
   styleUrls: ['./admin-view.component.css'],
 })
 export class AdminViewComponent {
-
   public vendorList: any;
   public vendorBase: any;
+
+  public userBase: any;
   public labels: any[] = [];
   public data: any = [];
 
-  public labelForCity:any[]=[];
-  public labelForPrice:any[]=[];
+  public labelForCity: any[] = [];
+  public labelForPrice: any[] = [];
 
   public hashMap: { [key: string]: number } = {};
-  public hashMap2: { [key: string]: number } = {}
+  public hashMap2: { [key: string]: number } = {};
 
-  constructor(private http: HttpClient,private dataService:VendorDataService) {
-  }
+  constructor(
+    private dataService: VendorDataService,
+    private userService: UserDataService
+  ) {}
 
   ngOnInit() {
-    const token=localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
+    });
+
+    this.userService.getAllUsers(headers).subscribe({
+      next: (v) => {this.userBase=v.length},
+      error: (e) => {},
+      complete: () => {this.vendor_user_pie_chart();},
     });
 
     this.dataService.getVendorData(headers).subscribe({
@@ -40,12 +49,13 @@ export class AdminViewComponent {
         this.checkPricesInEachCity();
         this.city_price_chart();
       },
-      error: (e) => { },
+      error: (e) => {},
       complete: () => {
         this.pushDataToArrays();
         this.pushToArrays2();
       },
     });
+    
   }
 
   pushDataToArrays() {
@@ -69,7 +79,7 @@ export class AdminViewComponent {
     });
   }
 
-  pushToArrays2(){
+  pushToArrays2() {
     for (const key in this.hashMap2) {
       if (this.hashMap2.hasOwnProperty(key)) {
         const value = this.hashMap2[key];
@@ -79,32 +89,53 @@ export class AdminViewComponent {
     }
   }
 
-  checkPricesInEachCity(){
-    this.vendorList.forEach((element:any)=>{
-      var key=element.location;
-      if(this.hashMap2.hasOwnProperty(key)){
-        const value=this.hashMap2[key];
-        this.hashMap2[key]=(value+element.price)/2;
+  checkPricesInEachCity() {
+    this.vendorList.forEach((element: any) => {
+      var key = element.location;
+      if (this.hashMap2.hasOwnProperty(key)) {
+        const value = this.hashMap2[key];
+        this.hashMap2[key] = (value + element.price) / 2;
+      } else {
+        this.hashMap2[key] = element.price;
       }
-      else{
-        this.hashMap2[key]=element.price;
-      }
-    })
-    console.log(this.hashMap2)
+    });
   }
 
-  city_price_chart(){
-    new Chart(document.getElementById('avg-city-price') as any,{
-      type:'bar',
-      data:{
-        labels:this.labelForCity,
-        datasets:[{
-          label:'Average price of Service per City',
-          data:this.labelForPrice,
-          borderWidth:1
-        }]
-      }
-    })
+  city_price_chart() {
+    new Chart(document.getElementById('avg-city-price') as any, {
+      type: 'bar',
+      data: {
+        labels: this.labelForCity,
+        datasets: [
+          {
+            label: 'Average price of Service per City',
+            data: this.labelForPrice,
+            borderWidth: 1,
+          },
+        ],
+      },
+    });
+  }
+
+  vendor_user_pie_chart(){
+    new Chart(document.getElementById('vendor_to_user_ratio') as any, {
+      type: 'pie',  // Change the chart type to 'pie'
+      data: {
+        labels:['vendor','user'],
+        datasets: [
+          {
+            label: 'Vendor to User Person Base',
+            data: [this.vendorBase,this.userBase],
+            borderWidth: 1,
+            backgroundColor: [  // Specify background colors for each segment of the pie chart
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)'
+              // You can add more colors as needed for additional data points
+            ],
+          },
+        ],
+      },
+    });
   }
 
   vendor_location_base() {
@@ -112,12 +143,14 @@ export class AdminViewComponent {
       type: 'bar',
       data: {
         labels: this.labels,
-        datasets: [{
-          label: 'Vendors in Each City',
-          data: this.data,
-          borderWidth: 1
-        }]
-      }
+        datasets: [
+          {
+            label: 'Vendors in Each City',
+            data: this.data,
+            borderWidth: 1,
+          },
+        ],
+      },
     });
   }
 }

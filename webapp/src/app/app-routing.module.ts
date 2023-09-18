@@ -9,9 +9,10 @@ import { LandingActualVendorComponent } from './components/landing-actual-vendor
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   {path:'contact-us',component:ContactUsComponent},

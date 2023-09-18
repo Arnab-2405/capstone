@@ -26,7 +26,7 @@ export class BookingComponent {
       blockedDate: ['', Validators.required]
     });
     this.sharedData = this.sharingService.getSharedDate();
-
+    localStorage.setItem('price',this.sharedData.price);
     var length = this.sharedData.bookedDates.length;
 
     this.datesToDisable = []

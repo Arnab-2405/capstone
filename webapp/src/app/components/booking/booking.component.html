@@ -1,6 +1,6 @@
 <div class="container">
-  <form [formGroup]="bookingDate" (ngSubmit)="gotoPayment()">
-    <div class="close" (click)="close()"><mat-icon>close</mat-icon></div>
+  <form [formGroup]="bookingDate" (ngSubmit)="gotoPayment()" class="left">
+    
     <div class="title">Select the date when you are available</div>
     <div class="vendorName">
       <mat-icon>person</mat-icon
@@ -37,6 +37,10 @@
     </div>
     <button type="submit" [disabled]="!bookingDate.valid">Pay Now</button>
   </form>
+  <div class="right">
+    Description: {{sharedData.description}}
+  </div>
+  <div class="close" (click)="close()"><mat-icon>close</mat-icon></div>
 </div>
 
 <!-- TODO Styling remains -->

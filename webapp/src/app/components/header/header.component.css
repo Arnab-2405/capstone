@@ -5,15 +5,15 @@ body {
 }
 
 .header {
-  background: rgb(55, 212, 155);
-  background: linear-gradient(
+  background: rgb(232, 232, 232);
+  /* background: linear-gradient(
     90deg,
     rgba(55, 212, 155, 1) 0%,
     rgba(37, 164, 118, 1) 49%,
     rgba(52, 207, 150, 1) 100%
-  );
+  ); */
   padding: 10px 0;
-  box-shadow: 0px 0px 50px black;
+  box-shadow: 0px 0px 10px black;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -60,6 +60,10 @@ body {
   margin-right: 40px;
 }
 
+.profile-button img{
+  border-radius: 50%;
+}
+
 .profile-button,
 .dropdown-content {
   cursor: pointer;
@@ -101,13 +105,11 @@ body {
 
 .profile-nav a:hover {
   background-color: #34d198; /* Highlight color on hover */
-  color: #fff;
+  color: #000000;
 }
 
 #specific{
-  color: #fff;
-  font-weight: 600;
-  font-size: 1.4rem;
+  color: #000000;
 }
 
 /* @media (max-width: 600px) {

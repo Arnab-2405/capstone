@@ -36,6 +36,7 @@ import { LandingActualVendorComponent } from './components/landing-actual-vendor
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
     ContactUsComponent,
     AboutUsComponent,
     UpdateProfileComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
