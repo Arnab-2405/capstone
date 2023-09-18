@@ -20,5 +20,9 @@ export class VendorDataService {
   getVendorData(headersData:any):Observable<any>{
     return this.http.get('http://localhost:9090/vendor-data/',{headers:headersData});
   }
+
+  getSpecificVendor(vendorId:any,headersData:any){
+    return this.http.get<any>(`http://localhost:9090/vendor-data/${vendorId}`,{headers:headersData});
+  }
   
 }

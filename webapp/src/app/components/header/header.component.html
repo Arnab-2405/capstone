@@ -1,9 +1,6 @@
-<!-- Html -->
-
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Add viewport meta tag -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
@@ -37,16 +34,13 @@
             <nav class="profile-nav">
               <ul>
                 <li><a routerLink="/update-profile">Update Profile</a></li>
-                <li><a href="#">My Orders</a></li>
-                <li><a routerLink="">Logout</a></li>
+                <li><a routerLink="#">My Orders</a></li>
+                <li><a (click)="logout()">Logout</a></li>
               </ul>
             </nav>
           </div>
         </div>
       </div>
     </header>
-    <div class="content">
-      <!-- Page Content daaldio yaha -->
-    </div>
   </body>
 </html>

@@ -37,6 +37,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
+import { BookingCardComponent } from './components/booking-card/booking-card.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     AboutUsComponent,
     UpdateProfileComponent,
     HomepageComponent,
+    UserBookingsComponent,
+    BookingCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,20 +10,27 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {path:'contact-us',component:ContactUsComponent},
-  {path:'about-us',component:AboutUsComponent},
-  {path:'update-profile',component:UpdateProfileComponent},
+  { path: 'contact-us', component: ContactUsComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'update-profile', component: UpdateProfileComponent },
   {
     path: 'landing',
     children: [
       { path: 'user', component: LandingVendorComponent },
       { path: 'vendor', component: LandingActualVendorComponent },
     ],
+  },
+  {
+    path: 'bookings',
+    children: [
+      { path: 'user', component: UserBookingsComponent }
+    ]
   },
   { path: 'payment', component: PaymentComponent },
   {
@@ -36,4 +43,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
