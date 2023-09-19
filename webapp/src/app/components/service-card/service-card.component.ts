@@ -1,4 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { BookingService } from 'src/app/services/booking.service';
+import { EmailSpecificVendorService } from 'src/app/services/email-specific-vendor.service';
+import { LandingActualVendorComponent } from '../landing-actual-vendor/landing-actual-vendor.component';
 
 @Component({
   selector: 'app-service-card',
@@ -7,11 +11,17 @@ import { Component, Input } from '@angular/core';
 })
 export class ServiceCardComponent {
 
+  constructor(private booking:BookingService,private parent:LandingActualVendorComponent){}
+
   @Input() data: any;
 
   public startDate: any;
   public endDate: any;
   public datePosted: any;
+
+  public headers = new HttpHeaders({
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  });
 
   serviceTypeAvatarImages: { [key: string]: string } = {
     'Home Cleaning': 'assets/images/avatar-vendor-1.png',
@@ -67,6 +77,10 @@ export class ServiceCardComponent {
   }
 
   delete(){
-    
+    this.booking.deleteServiceById(this.data.vendorId,this.headers).subscribe({
+      next:(v)=>{this.parent.ngOnInit()},
+      error:(e)=>{},
+      complete:()=>{}
+    })
   }
 }

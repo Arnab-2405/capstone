@@ -15,4 +15,8 @@ export class BookingService {
   updateBlockedDate(vendorId:any,data:any,headerData:any){
     return this.http.put(`http://localhost:9090/vendor-data/book/${vendorId}`,data,{headers:headerData, responseType:'text'});
   }
+
+  deleteServiceById(vendorId:any,headerData:any){
+    return this.http.delete(`http://localhost:9090/vendor-data/${vendorId}`,{headers:headerData, responseType:'text'});
+  }
 }
