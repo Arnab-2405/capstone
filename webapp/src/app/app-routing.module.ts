@@ -12,6 +12,7 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { VendorRegisterComponent } from './components/vendor-register/vendor-register.component';
+import { VendorBookingsComponent } from './components/vendor-bookings/vendor-bookings.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   {
     path: 'bookings',
     children: [
-      { path: 'user', component: UserBookingsComponent }
+      { path: 'user', component: UserBookingsComponent },
+      { path: 'vendor', component: VendorBookingsComponent }
     ]
   },
   { path: 'payment', component: PaymentComponent },

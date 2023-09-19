@@ -41,6 +41,7 @@ import { UserBookingsComponent } from './components/user-bookings/user-bookings.
 import { BookingCardComponent } from './components/booking-card/booking-card.component';
 import { VendorRegisterComponent } from './components/vendor-register/vendor-register.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
+import { VendorBookingsComponent } from './components/vendor-bookings/vendor-bookings.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ServiceCardComponent } from './components/service-card/service-card.com
     BookingCardComponent,
     VendorRegisterComponent,
     ServiceCardComponent,
+    VendorBookingsComponent,
   ],
   imports: [
     BrowserModule,
