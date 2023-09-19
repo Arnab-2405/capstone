@@ -7,6 +7,7 @@
   </head>
   <body>
     <app-header style="position: sticky; top: 0; z-index: 10"></app-header>
+    <app-back-btn style="z-index: 10;"></app-back-btn>
     <div class="content">
       <div class="grid-item" *ngFor="let booking of arrayOfBooking">
         <ng-container *ngFor="let vendor of vendorMapping">

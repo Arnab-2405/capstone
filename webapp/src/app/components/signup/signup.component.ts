@@ -13,7 +13,7 @@ export class SignupComponent {
   constructor(private router: Router, private formBuilder: FormBuilder, private vendor: VendorDataService) { }
 
   public registerForm!: FormGroup;
-
+  isChecked: boolean = false;
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       role: 2,
@@ -22,6 +22,9 @@ export class SignupComponent {
       userName: ['', Validators.required],
       passwordHash: ['', Validators.required]
     })
+  }
+  valueSet(){
+    this.isChecked=!this.isChecked;
   }
 
   gotoLogin() {

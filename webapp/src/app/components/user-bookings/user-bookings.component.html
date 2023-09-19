@@ -7,6 +7,7 @@
   </head>
   <body>
     <app-header style="position: sticky; top: 0; z-index: 10"></app-header>
+    <app-back-btn style="z-index: 10;"></app-back-btn>
     <div class="content">
       <div class="grid-item" *ngFor="let booking of userData">
         <app-booking-card-user [booking]="booking"></app-booking-card-user>

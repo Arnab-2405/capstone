@@ -7,6 +7,7 @@
   </head>
   <body>
     <div class="container">
+      <app-back-btn style="z-index: 10;"></app-back-btn>
       <div class="left-window">
         <div class="shape"></div>
         <img src="../../../assets/images/signup-art.svg" alt="" srcset="" />
@@ -48,14 +49,13 @@
                 />
               </mat-form-field>
             </div>
-            <div class="forgot-password">dwa</div>
             <div class="check">
-              <mat-checkbox class="example-margin"
+              <mat-checkbox (click)="valueSet()" class="example-margin" 
                 >I hereby accept to all the Terms & Conditions mentioned
                 <a routerLink="/policies">here</a></mat-checkbox
               >
             </div>
-            <button type="submit" [disabled]="!registerForm.valid">
+            <button type="submit" [disabled]="(!registerForm.valid && !isChecked)">
               Register
             </button>
             <div class="new-user" (click)="gotoLogin()">

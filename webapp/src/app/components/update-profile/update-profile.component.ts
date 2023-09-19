@@ -89,6 +89,12 @@ export class UpdateProfileComponent {
         complete: () => { }
       })
     }
+
+    if(localStorage.getItem('role')==='vendor'){
+      this.router.navigate(['landing','vendor'])
+    }else{
+      this.router.navigate(['landing','user'])
+    }
   }
 
   //TODO

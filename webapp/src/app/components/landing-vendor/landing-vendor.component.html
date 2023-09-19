@@ -8,6 +8,7 @@
   <body>
     <!-- TODO Add user edit, about us, contact us section, scroll to top button, implement book now service -->
     <app-header style="position: sticky; top: 0; z-index: 10;"></app-header>
+    <app-back-btn style="z-index: 10;"></app-back-btn>
     <div class="container">
       <div class="grid-item" *ngFor="let vendor of vendorList">
         <app-vendor-card [data]="vendor"></app-vendor-card>

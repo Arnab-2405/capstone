@@ -46,6 +46,7 @@ import { BookingCardUserComponent } from './components/booking-card-user/booking
 import { HomepageHeaderComponent } from './components/homepage-header/homepage-header.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { PoliciesComponent } from './components/policies/policies.component';
+import { BackBtnComponent } from './components/back-btn/back-btn.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { PoliciesComponent } from './components/policies/policies.component';
     BookingCardUserComponent,
     HomepageHeaderComponent,
     PoliciesComponent,
+    BackBtnComponent,
   ],
   imports: [
     BrowserModule,
