@@ -10,25 +10,25 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  constructor(private router: Router, private formBuilder: FormBuilder, private vendor:VendorDataService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private vendor: VendorDataService) { }
 
   public registerForm!: FormGroup;
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       role: 2,
-      name:['',Validators.required],
-      email:['',Validators.email],
+      name: ['', Validators.required],
+      email: ['', Validators.email],
       userName: ['', Validators.required],
       passwordHash: ['', Validators.required]
     })
   }
 
-  gotoLogin(){
+  gotoLogin() {
     this.router.navigate(['login'])
   }
 
-  signup(){
+  signup() {
     if (this.registerForm.value.role === 1) {
       this.registerForm.patchValue({ role: 'vendor' });
     }
@@ -38,13 +38,11 @@ export class SignupComponent {
     else {
       this.registerForm.patchValue({ role: 'admin' });
     }
-    console.log(this.registerForm.value)
 
-    //TODO CHANGE API & ROUTING
     this.vendor.signup(this.registerForm.value).subscribe({
-      next:(v)=>{console.log(v)},
-      error:(e)=>{console.log(e)},
-      complete:()=>{
+      next: (v) => { },
+      error: (e) => { console.log(e) },
+      complete: () => {
         this.router.navigate(['login'])
       }
     })

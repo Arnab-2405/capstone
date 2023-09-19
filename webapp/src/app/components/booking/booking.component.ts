@@ -4,6 +4,8 @@ import { LandingVendorComponent } from '../landing-vendor/landing-vendor.compone
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
 import { min } from 'rxjs';
+import { BookingService } from 'src/app/services/booking.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-booking',
@@ -12,7 +14,7 @@ import { min } from 'rxjs';
 })
 export class BookingComponent {
 
-  constructor(private formBuilder: FormBuilder, private landing: LandingVendorComponent, private sharingService: SharedDataService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private landing: LandingVendorComponent, private sharingService: SharedDataService, private router: Router, private booking: BookingService) { }
 
   public bookingDate!: FormGroup;
 
@@ -21,17 +23,23 @@ export class BookingComponent {
   public minDate: any;
   public maxDate: any;
 
+  public headers = new HttpHeaders({
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  });
+
   ngOnInit() {
     this.bookingDate = this.formBuilder.group({
       blockedDate: ['', Validators.required]
     });
     this.sharedData = this.sharingService.getSharedDate();
-    localStorage.setItem('price',this.sharedData.price);
+    localStorage.setItem('price', this.sharedData.price);
     var length = this.sharedData.bookedDates.length;
 
     this.datesToDisable = []
     for (var i = 0; i < length; i++) {
-      this.datesToDisable.push(new Date(this.sharedData.bookedDates[i].blockedDate.toDateString()));
+      const dateArray=this.sharedData.bookedDates[i].blockedDate;
+      const dateObject=new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
+      this.datesToDisable.push(dateObject);
     }
 
     this.minDate = new Date(this.sharedData.startDate);
@@ -49,7 +57,36 @@ export class BookingComponent {
     );
   };
   gotoPayment() {
-    this.router.navigate(['payment']);
+
+    // Create a new Date object from the current 'blockedDate' value
+    const currentDate = new Date(this.bookingDate.value.blockedDate);
+
+    // Add 1 day to the current date
+    currentDate.setDate(currentDate.getDate() + 1);
+
+    // Update the 'blockedDate' value in your form group
+    this.bookingDate.patchValue({
+      blockedDate: currentDate.toISOString().split('T')[0]
+    });
+
+    const bookingData = {
+      userId: localStorage.getItem('email'),
+      blockedDate: this.bookingDate.value.blockedDate
+    };
+
+    this.booking.bookAppointment(this.sharedData.vendorId, bookingData, this.headers).subscribe({
+      next: (v) => {
+        this.booking.updateBlockedDate(this.sharedData.vendorId, this.bookingDate.value, this.headers).subscribe({
+          next: (v) => { },
+          error: (e) => { console.log(e) },
+          complete: () => { }
+        })
+      },
+      error: (e) => { },
+      complete: () => { this.router.navigate(['payment']); }
+    })
+
+
   }
 
   close() {
@@ -57,6 +94,6 @@ export class BookingComponent {
   }
 
   setLocally() {
-    localStorage.setItem('blockedDate', this.bookingDate.value);
+    localStorage.setItem('blockedDate', this.bookingDate.value.blockedDate);
   }
 }

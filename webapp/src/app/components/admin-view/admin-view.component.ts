@@ -26,7 +26,7 @@ export class AdminViewComponent {
   constructor(
     private dataService: VendorDataService,
     private userService: UserDataService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -35,9 +35,9 @@ export class AdminViewComponent {
     });
 
     this.userService.getAllUsers(headers).subscribe({
-      next: (v) => {this.userBase=v.length},
-      error: (e) => {},
-      complete: () => {this.vendor_user_pie_chart();},
+      next: (v) => { this.userBase = v.length },
+      error: (e) => { },
+      complete: () => { this.vendor_user_pie_chart(); },
     });
 
     this.dataService.getVendorData(headers).subscribe({
@@ -49,13 +49,13 @@ export class AdminViewComponent {
         this.checkPricesInEachCity();
         this.city_price_chart();
       },
-      error: (e) => {},
+      error: (e) => { },
       complete: () => {
         this.pushDataToArrays();
         this.pushToArrays2();
       },
     });
-    
+
   }
 
   pushDataToArrays() {
@@ -117,15 +117,15 @@ export class AdminViewComponent {
     });
   }
 
-  vendor_user_pie_chart(){
+  vendor_user_pie_chart() {
     new Chart(document.getElementById('vendor_to_user_ratio') as any, {
       type: 'pie',  // Change the chart type to 'pie'
       data: {
-        labels:['vendor','user'],
+        labels: ['vendor', 'user'],
         datasets: [
           {
             label: 'Vendor to User Person Base',
-            data: [this.vendorBase,this.userBase],
+            data: [this.vendorBase, this.userBase],
             borderWidth: 1,
             backgroundColor: [  // Specify background colors for each segment of the pie chart
               'rgba(255, 99, 132, 0.5)',

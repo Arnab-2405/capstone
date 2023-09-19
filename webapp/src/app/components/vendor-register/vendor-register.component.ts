@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
+import { LandingActualVendorComponent } from '../landing-actual-vendor/landing-actual-vendor.component';
 
 @Component({
   selector: 'app-vendor-register',
@@ -13,7 +14,7 @@ export class VendorRegisterComponent {
   public vendorRegistrationForm!: FormGroup;
   public vendorname: any = '';
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private vendorService: VendorDataService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private vendorService: VendorDataService, private parent: LandingActualVendorComponent) { }
 
   ngOnInit() {
     this.vendorname = localStorage.getItem('username');
@@ -36,15 +37,14 @@ export class VendorRegisterComponent {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    console.log(this.vendorRegistrationForm.value)
     this.vendorService.addVendor(this.vendorRegistrationForm.value, headers)
       .subscribe({
-        next: (v) => { console.log(v)},
+        next: (v) => { },
         error: (e) => {
           console.log(e);
         },
         complete: () => {
-          this.router.navigate(['landing', 'vendor'])
+          this.parent.change();
         },
       });
     this.vendorRegistrationForm.reset();

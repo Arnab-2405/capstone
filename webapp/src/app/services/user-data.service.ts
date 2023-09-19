@@ -13,7 +13,7 @@ export class UserDataService {
   }
 
   getAllUsers(headersData:any){
-    return this.http.get<any>('http://localhost:8062/auth-data/',{headers:headersData});
+    return this.http.get<any>('http://localhost:8062/auth-data/getAll',{headers:headersData});
   }
 
   getAuthData(email: any,headersData:any) {

@@ -26,7 +26,7 @@ export class VendorDataService {
   }
 
   addVendor(data: any, headersData: any) {
-    return this.http.post<any>(`http://localhost:9090/vendor-data/`, data, {headers: headersData,});
+    return this.http.post(`http://localhost:9090/vendor-data/`, data, {headers: headersData,responseType:'text'});
   }
 
   // TODO add schedule service list in vendor service -> userid,booking date -> findAllByEmail in vendorservice (create this List<Vendors> to get all the types of services this guy is providing)

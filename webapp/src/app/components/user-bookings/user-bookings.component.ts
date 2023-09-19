@@ -21,7 +21,6 @@ export class UserBookingsComponent {
     this.userDataService.getUserData(localStorage.getItem('email'),this.headers).subscribe({
       next:(v)=>{
         this.userData=v.myBooking;
-        console.log(this.userData)
       },
       error:(e)=>{},
       complete:()=>{}
