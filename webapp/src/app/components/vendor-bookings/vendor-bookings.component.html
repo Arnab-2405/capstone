@@ -9,7 +9,9 @@
     <app-header style="position: sticky; top: 0; z-index: 10"></app-header>
     <div class="content">
       <div class="grid-item" *ngFor="let booking of arrayOfBooking">
-        <app-booking-card [booking]="booking" ></app-booking-card>
+        <ng-container *ngFor="let vendor of vendorMapping">
+          <app-booking-card [booking]="booking" [vendor]="vendor"></app-booking-card>
+        </ng-container>
       </div>
     </div>
     <app-footer></app-footer>

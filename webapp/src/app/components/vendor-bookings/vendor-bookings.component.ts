@@ -11,8 +11,9 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
 export class VendorBookingsComponent {
   public vendorArrayData: any;
   public vendorData: any;
+  public vendorMapping:any[]=[];
 
-  public arrayOfBooking: any[]=[];
+  public arrayOfBooking: any[] = [];
 
   public headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -29,12 +30,13 @@ export class VendorBookingsComponent {
           jobsArray.forEach((element: any) => {
             if (element != null) {
               this.arrayOfBooking.push(element);
+              this.vendorMapping.push(this.vendorArrayData[i].vendorId);
             }
           });
         }
       },
       error: (e) => { },
-      complete: () => {  }
+      complete: () => { }
     })
   }
 }

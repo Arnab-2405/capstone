@@ -8,12 +8,26 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router:Router){}
+  constructor(private router: Router) { }
 
-  public username:any=localStorage.getItem('username')
+  public username: any = localStorage.getItem('username')
+
+  gotoProfileUpdate(){
+    this.router.navigate(['update-profile'])
+  }
+
+  gotoOrderPage() {
+    if(localStorage.getItem('role')==='vendor'){
+      this.router.navigate(['bookings','vendor'])
+    }
+    if(localStorage.getItem('role')==='user'){
+      this.router.navigate(['bookings','user'])
+    }
+    return '/'
+  }
 
 
-  logout(){
+  logout() {
     localStorage.clear();
     this.router.navigate([''])
   }

@@ -33,8 +33,8 @@
           <div class="dropdown-content">
             <nav class="profile-nav">
               <ul>
-                <li><a routerLink="/update-profile">Update Profile</a></li>
-                <li><a routerLink="#">My Orders</a></li>
+                <li><a (click)="gotoProfileUpdate()">Update Profile</a></li>
+                <li><a (click)="gotoOrderPage()">My Orders</a></li>
                 <li><a (click)="logout()">Logout</a></li>
               </ul>
             </nav>

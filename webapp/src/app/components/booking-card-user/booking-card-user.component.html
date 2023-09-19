@@ -6,9 +6,12 @@
           <div class="img-square-wrapper">
             <img
               class=""
-              [src]="serviceTypeImages[serviceType] || 'http://via.placeholder.com/300x180'"
+              [src]="
+                serviceTypeImages[serviceType] ||
+                'http://via.placeholder.com/300x180'
+              "
               alt="Card image cap"
-              style="width: 100%;"
+              style="width: 100%"
             />
           </div>
           <div class="card-body">
@@ -22,15 +25,15 @@
               Price - <span id="price">&#8377;{{ price }}</span>
             </h4>
             <h5 class="card-title">
-              Customer Name - <span id="name">{{ customerName }}</span>
+              Provider Name - <span id="name">{{ vendorName }}</span>
             </h5>
             <p class="card-text">
-              Location - <span id="description">{{ location }}</span>
+              Description - <span id="description">{{ description }}</span>
             </p>
           </div>
         </div>
         <div class="card-footer">
-          <small class="text-muted">{{lastUpdatedText}}</small>
+          <small class="text-muted">{{ lastUpdatedText }}</small>
         </div>
       </div>
     </div>

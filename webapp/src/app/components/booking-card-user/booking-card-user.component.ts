@@ -1,25 +1,22 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { UserDataService } from 'src/app/services/user-data.service';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
-  selector: 'app-booking-card',
-  templateUrl: './booking-card.component.html',
-  styleUrls: ['./booking-card.component.css']
+  selector: 'app-booking-card-user',
+  templateUrl: './booking-card-user.component.html',
+  styleUrls: ['./booking-card-user.component.css']
 })
-export class BookingCardComponent {
-
+export class BookingCardUserComponent {
   @Input() booking: any;
-  @Input() vendor: any;
 
   public vendorId: any;
   public bookingDate: any;
 
-  public customerName: any;
+  public vendorName: any;
   public serviceType: any
-  public location: any;
-  public price: any;
+  public description: any;
+  public price:any;
 
   public lastUpdatedText: any;
   public startTime = new Date();
@@ -42,25 +39,20 @@ export class BookingCardComponent {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   });
 
-  constructor(private vendorService: VendorDataService, private userService: UserDataService) { }
+  constructor(private vendorService: VendorDataService) { }
 
   ngOnInit() {
     this.updateLastUpdatedText();
-    setInterval(this.updateLastUpdatedText, 15000 / 2); // 60000 ms = 1 minute
-    this.bookingDate = new Date(this.booking.blockedDate).toDateString();
-    this.vendorService.getSpecificVendor(this.vendor, this.headers).subscribe({
-      next: (v) => {
-        this.serviceType = v.serviceType;
-        this.location = v.location;
-        this.price = v.price
+    setInterval(this.updateLastUpdatedText, 15000/2); // 60000 ms = 1 minute
 
-        this.userService.getAuthData(this.booking.userId, this.headers).subscribe({
-          next: (v) => {
-            this.customerName = v.name;
-          },
-          error: (e) => { },
-          complete: () => { }
-        })
+    this.vendorId = this.booking.vendorId;
+    this.bookingDate = new Date(this.booking.bookedDate).toDateString();
+    this.vendorService.getSpecificVendor(this.vendorId, this.headers).subscribe({
+      next: (v) => {
+        this.vendorName = v.vendorName;
+        this.serviceType = v.serviceType;
+        this.description = v.description;
+        this.price=v.price
       },
       error: (e) => { },
       complete: () => { }
