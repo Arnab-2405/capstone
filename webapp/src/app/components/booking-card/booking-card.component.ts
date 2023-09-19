@@ -51,12 +51,19 @@ export class BookingCardComponent {
     this.vendorService.getSpecificVendor(this.vendor, this.headers).subscribe({
       next: (v) => {
         this.serviceType = v.serviceType;
-        this.location = v.location;
         this.price = v.price
 
         this.userService.getAuthData(this.booking.userId, this.headers).subscribe({
           next: (v) => {
             this.customerName = v.name;
+          },
+          error: (e) => { },
+          complete: () => { }
+        })
+
+        this.userService.getUserData(this.booking.userId,this.headers).subscribe({
+          next: (v) => {
+            this.location = v.address;
           },
           error: (e) => { },
           complete: () => { }

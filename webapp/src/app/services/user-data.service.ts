@@ -33,6 +33,6 @@ export class UserDataService {
   }
 
   addUserData(data: any,headersData:any) {
-    return this.http.post<any>(`http://localhost:8082/user-data/add`, data,{headers:headersData});
+    return this.http.post<any>(`http://localhost:8082/user-data/userprofile`, data,{headers:headersData});
   }
 }

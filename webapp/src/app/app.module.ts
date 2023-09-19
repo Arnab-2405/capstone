@@ -43,6 +43,9 @@ import { VendorRegisterComponent } from './components/vendor-register/vendor-reg
 import { ServiceCardComponent } from './components/service-card/service-card.component';
 import { VendorBookingsComponent } from './components/vendor-bookings/vendor-bookings.component';
 import { BookingCardUserComponent } from './components/booking-card-user/booking-card-user.component';
+import { HomepageHeaderComponent } from './components/homepage-header/homepage-header.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { PoliciesComponent } from './components/policies/policies.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,8 @@ import { BookingCardUserComponent } from './components/booking-card-user/booking
     ServiceCardComponent,
     VendorBookingsComponent,
     BookingCardUserComponent,
+    HomepageHeaderComponent,
+    PoliciesComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +93,7 @@ import { BookingCardUserComponent } from './components/booking-card-user/booking
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -132,6 +132,12 @@ body {
   .forgot-password:hover {
     cursor: grab;
   }
+
+  .check{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   .new-user {
     padding-top: 5%;
     color: rgb(73, 73, 73);

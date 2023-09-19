@@ -1,5 +1,6 @@
 // contact-us.component.ts
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-us',
@@ -7,17 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./contact-us.component.css']
 })
 export class ContactUsComponent {
-  formData = {
-    name: '',
-    email: '',
-    comments: ''
-  };
+  constructor(private formBuilder:FormBuilder){}
 
-  isFormSubmitted = false;
+  public contactForm!:FormGroup;
 
-  submitForm() {
-    // You can add your backend communication logic here.
-    // For now, just set the form submitted flag to true.
-    this.isFormSubmitted = true;
+  ngOnInit(){
+    this.contactForm=this.formBuilder.group({
+      name:['',Validators.required],
+      email:['',Validators.email],
+      message:['',Validators.required],
+    })
   }
 }

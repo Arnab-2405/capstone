@@ -13,6 +13,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { VendorRegisterComponent } from './components/vendor-register/vendor-register.component';
 import { VendorBookingsComponent } from './components/vendor-bookings/vendor-bookings.component';
+import { PoliciesComponent } from './components/policies/policies.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'update-profile', component: UpdateProfileComponent },
+  {path:'policies',component:PoliciesComponent},
   {
     path: 'landing',
     children: [
