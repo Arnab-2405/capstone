@@ -40,6 +40,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { BookingCardComponent } from './components/booking-card/booking-card.component';
 import { VendorRegisterComponent } from './components/vendor-register/vendor-register.component';
+import { ServiceCardComponent } from './components/service-card/service-card.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { VendorRegisterComponent } from './components/vendor-register/vendor-reg
     UserBookingsComponent,
     BookingCardComponent,
     VendorRegisterComponent,
+    ServiceCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,25 +1,59 @@
-.add-btn{
-    width: 10vw;
-    height: 5vh;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 3rem;
-    left: 3rem;
+.add-btn {
+  width: 10vw;
+  height: 5vh;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
 }
 
-.overlay{
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    z-index: 11;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.769);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.overlay {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  z-index: 11;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.769);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-row-gap: 5vh;
+  grid-column-gap: 5vh;
+  justify-content: space-around;
+  padding-top: 5%;
+  height: max-content;
+}
+
+.grid-item {
+  width: 20rem;
+  height: fit-content;
+}
+
+.scroll-to-top-button {
+  width: 6vh;
+  height: 6vh;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 10;
+  background-color: #1cd57c;
+  color: #fff;
+  border: none;
+  border-radius: 60%;
+  cursor: pointer;
+  display: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.scroll-to-top-button:hover {
+  background-color: #00525d;
+}
