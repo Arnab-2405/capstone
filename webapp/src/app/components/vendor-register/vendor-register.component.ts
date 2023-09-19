@@ -19,10 +19,11 @@ export class VendorRegisterComponent {
   ngOnInit() {
     this.vendorname = localStorage.getItem('username');
     this.vendorRegistrationForm = this.formBuilder.group({
+      email:[localStorage.getItem('email')],
       vendorName: [localStorage.getItem('username')],
       serviceType: ['', Validators.required],
       description: [''],
-      price: ['', Validators.pattern('^[0-9]+$')],
+      price: ['',[Validators.required, Validators.pattern('^[0-9]+$')]],
       location: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -44,7 +45,8 @@ export class VendorRegisterComponent {
           console.log(e);
         },
         complete: () => {
-          this.parent.change();
+          this.parent.change()
+          this.parent.ngOnInit();
         },
       });
     this.vendorRegistrationForm.reset();

@@ -65,4 +65,8 @@ export class ServiceCardComponent {
     const day1 = this.endDate[2];
     this.endDate = `${day1} ${monthNames[month1 - 1]} ${year1}`;
   }
+
+  delete(){
+    
+  }
 }

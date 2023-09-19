@@ -6,10 +6,18 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 3rem;
+  top: 6rem;
   left: 3rem;
 }
 
+.close{
+  height: 100%;
+  padding-top: 2%;
+}
+
+mat-icon{
+  background: red;
+}
 .overlay {
   position: absolute;
   top: 0%;
