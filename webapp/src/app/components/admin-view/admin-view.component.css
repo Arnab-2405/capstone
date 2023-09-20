@@ -31,6 +31,8 @@ ul li a{
 
 header{
     font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .content{
@@ -53,7 +55,7 @@ header{
 }
 .user-base{
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 30% 70%;
     width: 100%;
     height: min-content;
 }
@@ -71,4 +73,10 @@ label,h2{
 }
 h2{
     border: 0;
+}
+
+.label-title{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
 }
