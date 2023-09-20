@@ -6,15 +6,20 @@
     <title>Document</title>
   </head>
   <body>
-      <app-header style="position: sticky; top: 0; border: 0;"></app-header>
+    <app-header style="position: sticky; top: 0; border: 0"></app-header>
     <div class="content">
       <div class="navigation">
         <ul>
           <li>
-            <a  class="nav"><mat-icon>dashboard</mat-icon>Dashboard</a>
+            <a class="nav"><mat-icon>dashboard</mat-icon>Dashboard</a>
           </li>
           <li>
-            <a  class="nav" (click)="logout()" ><mat-icon>exit_to_app</mat-icon>Logout</a>
+            <a class="nav"><mat-icon>medical_services</mat-icon>API Health</a>
+          </li>
+          <li>
+            <a class="nav" (click)="logout()"
+              ><mat-icon>exit_to_app</mat-icon>Logout</a
+            >
           </li>
         </ul>
       </div>
@@ -23,17 +28,18 @@
         <div class="user-base">
           <label class="label-title" for="">Registered Users</label>
           <label class="label-title" for="">Registered Vendors</label>
-          <h2 class="counter-numbers">{{userBase}}+</h2>
+          <h2 class="counter-numbers">{{ userBase }}+</h2>
           <h2 class="counter-numbers">{{ vendorBase }}+</h2>
         </div>
 
         <div class="pie-chart">
-          <div class="vendor-pie"><canvas id="vendor_to_user_ratio"></canvas></div>
+          <div class="vendor-pie">
+            <canvas id="vendor_to_user_ratio"></canvas>
+          </div>
         </div>
 
         <div class="city-pop user-base">
           <label class="vendor-pie" for="">Vendors in each City</label>
-
           <div class="vendor-pop-base">
             <canvas id="vendor-location-size"></canvas>
           </div>
@@ -43,6 +49,7 @@
           <label class="vendor-pie" for=""
             >Average Price of Service per City</label
           >
+
           <div class="vendor-pop-base">
             <canvas id="avg-city-price"></canvas>
           </div>

@@ -15,7 +15,7 @@ export class ContactUsComponent {
   ngOnInit(){
     this.contactForm=this.formBuilder.group({
       name:['',Validators.required],
-      email:['',Validators.email],
+      email:['',[Validators.required,Validators.email]],
       message:['',Validators.required],
     })
   }
