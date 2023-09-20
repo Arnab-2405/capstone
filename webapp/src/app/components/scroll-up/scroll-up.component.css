@@ -9,9 +9,9 @@ body {
   width: 5rem;
   height: 5rem;
   position: fixed;
-  bottom: 3%;
+  bottom: 1%;
   left: 50%;
-  background-color: red;
+  background-color: #508c6f;
   border-radius: 5px;
   -webkit-clip-path: polygon(
     50% 50%,

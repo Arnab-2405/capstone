@@ -16,6 +16,8 @@ ul{
     padding: 0;
 }
 
+
+
 .navigation ul li{
     list-style: none;
 }
@@ -52,6 +54,13 @@ header{
 
 .dashboard{
     flex-basis: 85%;
+}
+
+.special{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 100%;
+    height: min-content;
 }
 .user-base{
     display: grid;

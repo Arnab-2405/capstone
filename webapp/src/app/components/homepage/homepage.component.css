@@ -1,3 +1,4 @@
+/* Reset some default styles */
 body,
 h1,
 h2,
@@ -11,7 +12,6 @@ a {
 }
 
 /* Global styles */
-
 body {
   background-color: #fff;
   color: #333;
@@ -26,7 +26,6 @@ body {
 }
 
 /* Hero Section */
-
 .hero {
   background-color: #fff;
   text-align: center;
@@ -63,7 +62,6 @@ body {
 }
 
 /* Features Section */
-
 .features {
   background-color: #34d198;
   text-align: center;
@@ -97,7 +95,6 @@ body {
 }
 
 /* Testimonials Section */
-
 .testimonials {
   text-align: center;
   padding: 50px 0;
@@ -127,7 +124,20 @@ body {
 }
 
 /* CTA Section */
+.cta-1 {
+  background-color: #fff;
 
+  text-align: center;
+  padding: 00px 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cta-1 h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* CTA Section */
 .cta {
   background-color: #fff;
   text-align: center;
@@ -154,4 +164,51 @@ body {
 
 .join-button:hover {
   background-color: #27b786;
+}
+
+.column {
+  float: left;
+  width: 30%;
+  margin-bottom: 40px;
+  padding: 0 20px;
+  transition: transform 0.2s;
+}
+
+.column:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.container-card {
+  padding: 0 16px;
+}
+
+.container-card h2 {
+  margin-top: 20px;
+}
+
+.container-card p.title {
+  margin-bottom: 30px;
+}
+
+.container-card::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.row1 {
+  display: flex;
+  justify-content: center;
+}
+
+.row2 {
+  display: flex;
+  justify-content: center;
 }
