@@ -1,5 +1,4 @@
-<!-- TODO TOGGLE OPEN CLOSE IN DONE..JUST INJECT IT INTO PARENT COMPONENT AND CALL THE CHANGEVALUE FN. -->
-<app-back-btn style="z-index: 10;"></app-back-btn>
+<app-back-btn style="z-index: 10"></app-back-btn>
 <div class="close-btn" (click)="changeValue()"><mat-icon>close</mat-icon></div>
 <div class="content">
   <div class="sub-content">
@@ -23,6 +22,15 @@
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
       </mat-form-field>
+      <div class="verify" *ngIf="!emailVerified">
+        <button class="send-otp" (click)="getOtp()">Send OTP</button>
+        <input matInput id="secret" />
+        <button class="otp-verify" (click)="verifyOtp()">Verify</button>
+      </div>
+
+      <div class="status" *ngIf="emailVerified">
+        Email verified <mat-icon>verified_user</mat-icon>
+      </div>
     </form>
 
     <!-- USER FORM -->
@@ -56,13 +64,16 @@
         <input matInput formControlName="address" />
       </mat-form-field>
 
-      <button (click)="changePass()">Change Password</button>
+      <button id="change" (click)="changePass()">Change Password</button>
     </form>
     <div class="button">
       <button
         type="button"
         (click)="onSubmit()"
         [disabled]="authForm.valid && userForm.valid ? false : true"
+        [style.background-color]="
+          authForm.valid && userForm.valid ? 'green' : 'red'
+        "
       >
         Save
       </button>

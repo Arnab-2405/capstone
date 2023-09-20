@@ -13,7 +13,12 @@ export class HeaderComponent {
   public username: any = localStorage.getItem('username')
   public show = true;
 
+  public isProfileUpdated:boolean=false;
+
   ngOnInit() {
+
+    this.isProfileUpdated=localStorage.getItem('secondLogin')?false:true;
+
     if (localStorage.getItem('role') === 'admin')
       this.show = false;
     else

@@ -17,9 +17,8 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private vendorData: VendorDataService,
     private userData: UserDataService,
-    private snackbar:MatSnackBar,
-  )
-  { }
+    private snackbar: MatSnackBar,
+  ) { }
 
   public loginForm!: FormGroup;
   public role: any;
@@ -62,38 +61,33 @@ export class LoginComponent {
         localStorage.setItem('username', username);
         localStorage.setItem('email', this.loginForm.value.email)
 
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        });
+        this.userData.firstLogin(this.loginForm.value.email, headers).subscribe({
+          next: (v) => {
+            localStorage.setItem('secondLogin', v.firstLoginDone)
+          },
+          error: (e) => {
+          },
+          complete: () => {
+          }
+        })
+
+
         if (this.loginForm.value.role === 'vendor') {
           this.router.navigate(['landing', 'vendor']);
         } else if (this.loginForm.value.role === 'user') {
-          const headers = new HttpHeaders({
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          });
-          this.userData.firstLogin(this.loginForm.value.email, headers).subscribe({
-            next: (v) => {
-              localStorage.setItem('secondLogin', v.firstLoginDone)
-              if (v.firstLoginDone) {
-                this.router.navigate(['landing', 'user']);
-              }
-              else {
-                this.router.navigate(['update-profile'])
-              }
-            },
-            error: (e) => {
-
-            },
-            complete: () => {
-
-            }
-          })
           this.router.navigate(['landing', 'user']);
         } else if (this.loginForm.value.role === 'admin') {
           this.router.navigate(['admin', 'dashboard'])
         } else {
           this.router.navigate([''])
+          this.snackbar.open('Something went wrong', 'Close');
         }
       },
       error: (e) => {
-        this.snackbar.open(e.error,'Close');
+        this.snackbar.open(e.error, 'Close');
         this.loginForm.reset();
       },
       complete: () => {

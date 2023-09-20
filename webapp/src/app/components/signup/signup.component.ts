@@ -45,7 +45,11 @@ export class SignupComponent {
 
     this.vendor.signup(this.registerForm.value).subscribe({
       next: (v) => { },
-      error: (e) => { this.snackbar.open(e.error,'Close') },
+      error: (e) => { 
+        if(e.error.length>18){
+          e.error='Something went wrong';
+        }
+        this.snackbar.open(e.error,'Close') },
       complete: () => {
         this.router.navigate(['login'])
       }

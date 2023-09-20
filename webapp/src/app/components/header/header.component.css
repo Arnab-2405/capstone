@@ -25,6 +25,14 @@ body {
   width: fit-content;
 }
 
+.exclaim{
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  bottom: 1.5rem;
+
+}
+
 .search{
   width: 100%;
   display: flex;

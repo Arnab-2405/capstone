@@ -1,10 +1,11 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EmailVerifyService } from 'src/app/services/email-verify.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -12,13 +13,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent {
-  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router, private location: Location,private snackbar:MatSnackBar) { }
+  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router, private location: Location, private snackbar: MatSnackBar, private email: EmailVerifyService) { }
 
   public authForm!: FormGroup;
   public userForm!: FormGroup;
+  public OTP: any;
 
   public authData: any;
   public userData: any;
+
+  public emailVerified: boolean | undefined;
 
   public headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -26,7 +30,7 @@ export class UpdateProfileComponent {
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      name: ['', Validators.pattern(/^[a-zA-Z]*$/)],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
       userName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     })
@@ -36,8 +40,33 @@ export class UpdateProfileComponent {
       phoneNumber: [''],
       address: ['']
     })
-
     this.getDataFromBackend();
+  }
+
+  getOtp() {
+    this.email.getOtp(localStorage.getItem('email')).subscribe({
+      next: (v) => {
+        console.log(v)
+        this.snackbar.open('OTP sent to registered mail', 'Close')
+      },
+      error: (e) => { this.snackbar.open('Error while sending Otp', 'Close') },
+      complete: () => { }
+    })
+  }
+
+  verifyOtp() {
+    const secretInput = document.getElementById('secret') as HTMLInputElement;
+    if (secretInput) {
+      this.OTP = secretInput.value;
+    }
+    this.email.verifyOtp(localStorage.getItem('email'), this.OTP).subscribe({
+      next: (v) => {
+        this.emailVerified = true;
+        this.snackbar.open('OTP Verfied', 'Close');
+      },
+      error: (e) => { this.snackbar.open('Invalid OTP', 'Close') },
+      complete: () => { }
+    })
   }
 
   changeValue() {
@@ -76,7 +105,7 @@ export class UpdateProfileComponent {
       this.data.updateAuthData(this.authForm.value, localStorage.getItem('email'), this.headers).subscribe({
         next: (v) => {
           this.authForm = this.formBuilder.group({
-            name: [v.name, [Validators.required]],
+            name: [v.name, [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
             userName: [v.userName, [Validators.required]],
             email: [v.email, [Validators.required, Validators.email]]
           })
@@ -92,7 +121,7 @@ export class UpdateProfileComponent {
           else {
             this.snackbar.open('Internal Server Error', 'close')
           }
-         },
+        },
         complete: () => { }
       })
     }
@@ -119,7 +148,7 @@ export class UpdateProfileComponent {
           else {
             this.snackbar.open('Internal Server Error', 'close')
           }
-         },
+        },
         complete: () => { }
       })
     }
@@ -141,12 +170,13 @@ export class UpdateProfileComponent {
       next: (v) => {
         this.authData = v;
         this.authForm = this.formBuilder.group({
-          name: [v.name, [Validators.required]],
+          name: [v.name, [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
           userName: [v.userName, [Validators.required]],
           email: [v.email, [Validators.required, Validators.email]]
         })
       },
       error: (e) => {
+        this.snackbar.open('Error while fetching details', 'Close');
       },
       complete: () => {
       }
@@ -155,6 +185,7 @@ export class UpdateProfileComponent {
       next: (v) => {
         this.userData = v;
         const birth = new Date(v.dob)
+        this.emailVerified = v.emailVerified;
         this.userForm = this.formBuilder.group({
           dob: [birth, [Validators.required]],
           gender: [v.gender, [Validators.required]],
@@ -163,6 +194,7 @@ export class UpdateProfileComponent {
         })
       },
       error: (e) => {
+        this.snackbar.open('Error while fetching details', 'Close');
       },
       complete: () => {
       }
