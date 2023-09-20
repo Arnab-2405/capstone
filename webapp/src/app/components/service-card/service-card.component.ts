@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
 import { EmailSpecificVendorService } from 'src/app/services/email-specific-vendor.service';
 import { LandingActualVendorComponent } from '../landing-actual-vendor/landing-actual-vendor.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-service-card',
@@ -11,7 +12,7 @@ import { LandingActualVendorComponent } from '../landing-actual-vendor/landing-a
 })
 export class ServiceCardComponent {
 
-  constructor(private booking:BookingService,private parent:LandingActualVendorComponent){}
+  constructor(private booking:BookingService,private parent:LandingActualVendorComponent,private snackbar:MatSnackBar){}
 
   @Input() data: any;
 
@@ -78,8 +79,8 @@ export class ServiceCardComponent {
 
   delete(){
     this.booking.deleteServiceById(this.data.vendorId,this.headers).subscribe({
-      next:(v)=>{this.parent.ngOnInit()},
-      error:(e)=>{},
+      next:(v)=>{this.parent.ngOnInit(),this.snackbar.open('Deleted','Close')},
+      error:(e)=>{this.snackbar.open('Failed To Delete','Close')},
       complete:()=>{}
     })
   }

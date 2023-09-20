@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 import { LandingActualVendorComponent } from '../landing-actual-vendor/landing-actual-vendor.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vendor-register',
@@ -14,7 +15,7 @@ export class VendorRegisterComponent {
   public vendorRegistrationForm!: FormGroup;
   public vendorname: any = '';
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private vendorService: VendorDataService, private parent: LandingActualVendorComponent) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private vendorService: VendorDataService, private parent: LandingActualVendorComponent,private snackbar:MatSnackBar) { }
 
   ngOnInit() {
     this.vendorname = localStorage.getItem('username');
@@ -40,9 +41,18 @@ export class VendorRegisterComponent {
     });
     this.vendorService.addVendor(this.vendorRegistrationForm.value, headers)
       .subscribe({
-        next: (v) => { },
+        next: (v) => { this.snackbar.open('Service added successfully','Close');},
         error: (e) => {
-          console.log(e);
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
         },
         complete: () => {
           this.parent.change()

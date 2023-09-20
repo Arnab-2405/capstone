@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { min } from 'rxjs';
 import { BookingService } from 'src/app/services/booking.service';
 import { HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-booking',
@@ -14,7 +15,8 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class BookingComponent {
 
-  constructor(private formBuilder: FormBuilder, private landing: LandingVendorComponent, private sharingService: SharedDataService, private router: Router, private booking: BookingService) { }
+  constructor(private formBuilder: FormBuilder, private landing: LandingVendorComponent, private sharingService: SharedDataService, private router: Router, private booking: BookingService,
+    private snackbar:MatSnackBar) { }
 
   public bookingDate!: FormGroup;
 
@@ -78,11 +80,33 @@ export class BookingComponent {
       next: (v) => {
         this.booking.updateBlockedDate(this.sharedData.vendorId, this.bookingDate.value, this.headers).subscribe({
           next: (v) => { },
-          error: (e) => { console.log(e) },
+          error: (e) => { 
+            var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+           },
           complete: () => { }
         })
       },
-      error: (e) => { },
+      error: (e) => {
+        var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+       },
       complete: () => { this.router.navigate(['payment']); }
     })
 

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 import { UserDataService } from 'src/app/services/user-data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,13 @@ import { UserDataService } from 'src/app/services/user-data.service';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private vendorData: VendorDataService, private userData: UserDataService) { }
+  constructor(private router: Router,
+    private formBuilder: FormBuilder,
+    private vendorData: VendorDataService,
+    private userData: UserDataService,
+    private snackbar:MatSnackBar,
+  )
+  { }
 
   public loginForm!: FormGroup;
   public role: any;
@@ -61,7 +68,7 @@ export class LoginComponent {
           const headers = new HttpHeaders({
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           });
-          this.userData.firstLogin(this.loginForm.value.email,headers).subscribe({
+          this.userData.firstLogin(this.loginForm.value.email, headers).subscribe({
             next: (v) => {
               localStorage.setItem('secondLogin', v.firstLoginDone)
               if (v.firstLoginDone) {
@@ -72,6 +79,7 @@ export class LoginComponent {
               }
             },
             error: (e) => {
+
             },
             complete: () => {
 
@@ -85,7 +93,8 @@ export class LoginComponent {
         }
       },
       error: (e) => {
-
+        this.snackbar.open(e.error,'Close');
+        this.loginForm.reset();
       },
       complete: () => {
         this.loginForm.reset();

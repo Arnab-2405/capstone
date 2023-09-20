@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
@@ -12,19 +13,34 @@ export class LandingVendorComponent {
 
   public popup: boolean = false;
 
-  constructor(private data: VendorDataService) { }
+  constructor(private data: VendorDataService, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    this.data.getVendorData(headers).subscribe({
-      next: (v) => {
-        this.vendorList = v;
-      },
-      error: (e) => {},
-      complete: () => { },
-    });
+    if (localStorage.getItem('role') === 'user') {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      });
+      this.data.getVendorData(headers).subscribe({
+        next: (v) => {
+          this.vendorList = v;
+        },
+        error: (e) => {
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+        },
+        complete: () => { },
+      });
+    } else {
+      this.snackbar.open('User privilges are required','Close');
+    }
   }
 
   scrollToTop() {

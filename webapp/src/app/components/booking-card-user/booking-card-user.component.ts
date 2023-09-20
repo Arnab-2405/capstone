@@ -10,13 +10,10 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
 export class BookingCardUserComponent {
   @Input() booking: any;
 
-  public vendorId: any;
+
   public bookingDate: any;
 
-  public vendorName: any;
-  public serviceType: any
-  public description: any;
-  public price:any;
+
 
   public lastUpdatedText: any;
   public startTime = new Date();
@@ -35,27 +32,10 @@ export class BookingCardUserComponent {
     'Painting': 'assets/images/painting.svg',
   };
 
-  public headers = new HttpHeaders({
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  });
-
-  constructor(private vendorService: VendorDataService) { }
-
   ngOnInit() {
     this.updateLastUpdatedText();
     setInterval(this.updateLastUpdatedText, 15000/2); // 60000 ms = 1 minute
 
-    this.vendorId = this.booking.vendorId;
-    this.bookingDate = new Date(this.booking.bookedDate).toDateString();
-    this.vendorService.getSpecificVendor(this.vendorId, this.headers).subscribe({
-      next: (v) => {
-        this.vendorName = v.vendorName;
-        this.serviceType = v.serviceType;
-        this.description = v.description;
-        this.price=v.price
-      },
-      error: (e) => { },
-      complete: () => { }
-    })
+    this.bookingDate=new Date(this.booking.bookingDate).toDateString();
   }
 }

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 import { UserDataService } from 'src/app/services/user-data.service';
@@ -27,10 +28,13 @@ export class AdminViewComponent {
   constructor(
     private dataService: VendorDataService,
     private userService: UserDataService,
-    private router :Router
+    private router :Router,
+    private snackbar:MatSnackBar
   ) { }
 
   ngOnInit() {
+    if(localStorage.getItem('role')==='admin'){
+      
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -38,7 +42,20 @@ export class AdminViewComponent {
 
     this.userService.getAllUsers(headers).subscribe({
       next: (v) => { this.userBase = v.length },
-      error: (e) => { },
+      error: (e) => {
+        var mssg=e.error.trace.split(".");
+        var val=mssg[2];
+        val=val.split(":");
+        val=val[0]
+        console.log(val)
+        if(val==='ExpiredJwtException')
+        {
+          this.snackbar.open('Session Expired, login again','close') 
+        }
+        else{
+          this.snackbar.open('Internal Server Error','close') 
+        }
+       },
       complete: () => { this.vendor_user_pie_chart(); },
     });
 
@@ -51,13 +68,28 @@ export class AdminViewComponent {
         this.checkPricesInEachCity();
         this.city_price_chart();
       },
-      error: (e) => { },
+      error: (e) => { 
+        var mssg=e.error.trace.split(".");
+        var val=mssg[2];
+        val=val.split(":");
+        val=val[0]
+        if(val==='ExpiredJwtException')
+        {
+          this.snackbar.open('Session Expired, login again','close') 
+        }
+        else{
+          this.snackbar.open('Internal Server Error','close') 
+        }
+      },
       complete: () => {
         this.pushDataToArrays();
         this.pushToArrays2();
       },
     });
-
+    }
+    else{
+      this.snackbar.open('Administrative priviliges are required','Close')
+    }
   }
 
   logout(){

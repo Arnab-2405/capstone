@@ -10,14 +10,15 @@
         <div class="logo">
           <img src="assets/images/black-logo.png" alt="Logo" />
         </div>
-        <div class="spacer"></div>
-        <div class="search">
+        <div class="company-name">CasaVenturo</div>
+        <div class="search" *ngIf="show">
           <input
-            type="text"
-            placeholder="What service are you looking for?"
-            class="search-field"
+          type="text"
+          placeholder="What service are you looking for?"
+          class="search-field"
           />
         </div>
+        <div class="spacer"></div>
       </div>
       <div class="header-right">
         <div class="header-link"><a routerLink="/about-us" id="specific">About Us</a></div>
@@ -34,7 +35,7 @@
             <nav class="profile-nav">
               <ul>
                 <li><a (click)="gotoProfileUpdate()">Update Profile</a></li>
-                <li><a (click)="gotoOrderPage()">My Orders</a></li>
+                <li *ngIf="show"><a (click)="gotoOrderPage()">My Orders</a></li>
                 <li><a (click)="logout()">Logout</a></li>
               </ul>
             </nav>

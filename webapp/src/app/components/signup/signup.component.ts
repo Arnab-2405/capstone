@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -10,14 +11,14 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  constructor(private router: Router, private formBuilder: FormBuilder, private vendor: VendorDataService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private vendor: VendorDataService, private snackbar:MatSnackBar) { }
 
   public registerForm!: FormGroup;
   isChecked: boolean = false;
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       role: 2,
-      name: ['', Validators.required],
+      name: ['', [Validators.required,Validators.pattern(/^[a-zA-Z]*$/)]],
       email: ['', Validators.email],
       userName: ['', Validators.required],
       passwordHash: ['', Validators.required]
@@ -44,7 +45,7 @@ export class SignupComponent {
 
     this.vendor.signup(this.registerForm.value).subscribe({
       next: (v) => { },
-      error: (e) => { console.log(e) },
+      error: (e) => { this.snackbar.open(e.error,'Close') },
       complete: () => {
         this.router.navigate(['login'])
       }

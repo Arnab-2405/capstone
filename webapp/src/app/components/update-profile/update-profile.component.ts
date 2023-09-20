@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-profile',
@@ -11,7 +12,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent {
-  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router,private location: Location) { }
+  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router, private location: Location,private snackbar:MatSnackBar) { }
 
   public authForm!: FormGroup;
   public userForm!: FormGroup;
@@ -25,12 +26,12 @@ export class UpdateProfileComponent {
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      name: [''],
+      name: ['', Validators.pattern(/^[a-zA-Z]*$/)],
       userName: ['', [Validators.required]],
-      email: ['']
+      email: ['', [Validators.required, Validators.email]]
     })
     this.userForm = this.formBuilder.group({
-      dob: [''],
+      dob: ['', Validators.required],
       gender: ['', [Validators.required]],
       phoneNumber: [''],
       address: ['']
@@ -39,7 +40,7 @@ export class UpdateProfileComponent {
     this.getDataFromBackend();
   }
 
-  changeValue(){
+  changeValue() {
     this.location.back();
   }
 
@@ -47,7 +48,7 @@ export class UpdateProfileComponent {
     var secondLogin = localStorage.getItem('secondLogin');
 
     if (secondLogin === "true") {
-      this.data.updateUserData(this.userForm.value, localStorage.getItem('email'),this.headers).subscribe({
+      this.data.updateUserData(this.userForm.value, localStorage.getItem('email'), this.headers).subscribe({
         next: (v) => {
           const birth = new Date(v.dob)
           this.userForm = this.formBuilder.group({
@@ -57,11 +58,22 @@ export class UpdateProfileComponent {
             address: [v.address, [Validators.required]]
           })
         },
-        error: (e) => { },
+        error: (e) => {
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+        },
         complete: () => { }
       })
 
-      this.data.updateAuthData(this.authForm.value, localStorage.getItem('email'),this.headers).subscribe({
+      this.data.updateAuthData(this.authForm.value, localStorage.getItem('email'), this.headers).subscribe({
         next: (v) => {
           this.authForm = this.formBuilder.group({
             name: [v.name, [Validators.required]],
@@ -69,12 +81,23 @@ export class UpdateProfileComponent {
             email: [v.email, [Validators.required, Validators.email]]
           })
         },
-        error: (e) => { },
+        error: (e) => {
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+         },
         complete: () => { }
       })
     }
     else {
-      this.data.addUserData({ ...this.userForm.value, email: localStorage.getItem('email') },this.headers).subscribe({
+      this.data.addUserData({ ...this.userForm.value, email: localStorage.getItem('email') }, this.headers).subscribe({
         next: (v) => {
 
           const birth = new Date(v.dob)
@@ -85,15 +108,26 @@ export class UpdateProfileComponent {
             address: [v.address, [Validators.required]]
           });
         },
-        error: (e) => { },
+        error: (e) => {
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+         },
         complete: () => { }
       })
     }
 
-    if(localStorage.getItem('role')==='vendor'){
-      this.router.navigate(['landing','vendor'])
-    }else{
-      this.router.navigate(['landing','user'])
+    if (localStorage.getItem('role') === 'vendor') {
+      this.router.navigate(['landing', 'vendor'])
+    } else {
+      this.router.navigate(['landing', 'user'])
     }
   }
 
@@ -103,7 +137,7 @@ export class UpdateProfileComponent {
   }
 
   getDataFromBackend() {
-    this.data.getAuthData(localStorage.getItem('email'),this.headers).subscribe({
+    this.data.getAuthData(localStorage.getItem('email'), this.headers).subscribe({
       next: (v) => {
         this.authData = v;
         this.authForm = this.formBuilder.group({
@@ -117,7 +151,7 @@ export class UpdateProfileComponent {
       complete: () => {
       }
     })
-    this.data.getUserData(localStorage.getItem('email'),this.headers).subscribe({
+    this.data.getUserData(localStorage.getItem('email'), this.headers).subscribe({
       next: (v) => {
         this.userData = v;
         const birth = new Date(v.dob)

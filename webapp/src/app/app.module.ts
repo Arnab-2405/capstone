@@ -47,6 +47,8 @@ import { HomepageHeaderComponent } from './components/homepage-header/homepage-h
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { BackBtnComponent } from './components/back-btn/back-btn.component';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,7 @@ import { BackBtnComponent } from './components/back-btn/back-btn.component';
     HomepageHeaderComponent,
     PoliciesComponent,
     BackBtnComponent,
+    ScrollUpComponent,    
   ],
   imports: [
     BrowserModule,
@@ -96,6 +99,8 @@ import { BackBtnComponent } from './components/back-btn/back-btn.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatSnackBarModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

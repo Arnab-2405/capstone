@@ -8,14 +8,26 @@
   position: absolute;
   top: 6rem;
   right: 3rem;
+  transition: background-color 0.4s ease-in-out;
+  transform: scale(1);
+  color: black;
 }
 
-.close{
+.add-btn:hover {
+  border: none;
+  outline: none;
+  background-color: #00af5d; 
+  transform: scale(1.01); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.close {
   height: 100%;
   padding-top: 2%;
 }
 
-mat-icon{
+mat-icon {
   background: red;
 }
 .overlay {
