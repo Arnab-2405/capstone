@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
@@ -25,7 +26,8 @@ export class AdminViewComponent {
 
   constructor(
     private dataService: VendorDataService,
-    private userService: UserDataService
+    private userService: UserDataService,
+    private router :Router
   ) { }
 
   ngOnInit() {
@@ -56,6 +58,11 @@ export class AdminViewComponent {
       },
     });
 
+  }
+
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['']);
   }
 
   pushDataToArrays() {

@@ -6,15 +6,15 @@
     <title>Document</title>
   </head>
   <body>
-    <app-header style="position: sticky; top: 0;"></app-header>
+      <app-header style="position: sticky; top: 0; border: 0;"></app-header>
     <div class="content">
       <div class="navigation">
         <ul>
           <li>
-            <a href="#">Dashboard</a>
+            <a  class="nav"><mat-icon>dashboard</mat-icon>Dashboard</a>
           </li>
           <li>
-            <a href="#">Logout</a>
+            <a  class="nav" (click)="logout()" ><mat-icon>exit_to_app</mat-icon>Logout</a>
           </li>
         </ul>
       </div>

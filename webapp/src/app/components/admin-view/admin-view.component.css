@@ -2,6 +2,37 @@ body{
     height: fit-content;
 }
 
+*{
+    border: 1px solid red;
+}
+
+.nav{
+    text-decoration: none;
+}
+
+ul{
+    width: 100%;
+    height: fit-content;
+    padding: 0;
+}
+
+.navigation ul li{
+    list-style: none;
+}
+
+ul li a{
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+header{
+    font-size: 3rem;
+}
+
 .content{
     display: flex;
     width: 100%;
@@ -22,7 +53,7 @@ body{
 }
 .user-base{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
     width: 100%;
     height: min-content;
 }
