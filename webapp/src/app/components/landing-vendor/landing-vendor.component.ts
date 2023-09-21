@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SearchService } from 'src/app/services/search.service';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
@@ -39,24 +40,11 @@ export class LandingVendorComponent {
         complete: () => { },
       });
     } else {
-      this.snackbar.open('User privilges are required','Close');
+      this.snackbar.open('User privilges are required', 'Close');
     }
   }
 
-  scrollToTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth' // Add smooth scrolling behavior
-    });
-  }
+  searchByLocation(location: any) {
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollButton = document.getElementById('scroll');
-    if (scrollButton) {
-      // Show the button when the user has scrolled down a certain amount
-      scrollButton.style.display = window.scrollY > window.innerHeight ? 'block' : 'none';
-    }
   }
 }

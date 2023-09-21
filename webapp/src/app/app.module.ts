@@ -49,6 +49,7 @@ import { PoliciesComponent } from './components/policies/policies.component';
 import { BackBtnComponent } from './components/back-btn/back-btn.component';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
+import { HeaderVendorComponent } from './components/header-vendor/header-vendor.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
     HomepageHeaderComponent,
     PoliciesComponent,
     BackBtnComponent,
-    ScrollUpComponent,    
+    ScrollUpComponent,
+    HeaderVendorComponent,    
   ],
   imports: [
     BrowserModule,

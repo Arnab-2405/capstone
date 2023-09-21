@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { LandingVendorComponent } from '../landing-vendor/landing-vendor.component';
 import { SearchService } from 'src/app/services/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { LandingActualVendorComponent } from '../landing-actual-vendor/landing-actual-vendor.component';
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-header-vendor',
+  templateUrl: './header-vendor.component.html',
+  styleUrls: ['./header-vendor.component.css']
 })
-export class HeaderComponent {
+export class HeaderVendorComponent {
 
   constructor(private router: Router,
     private searchService: SearchService,
     private snackbar: MatSnackBar,
-    private vendorPage:LandingVendorComponent
+    private vendorPage: LandingActualVendorComponent
   ) { }
 
   public username: any = localStorage.getItem('username')
@@ -56,7 +56,7 @@ export class HeaderComponent {
     if (secretInput.value !== null && this.selected !== '') {
       var value = secretInput.value;
       this.searchService.searchByParameter(this.selected, value).subscribe({
-        next: (v) => { this.vendorPage.vendorList=v},
+        next: (v) => { this.vendorPage.vendorList = v },
         error: (e) => { },
         complete: () => { }
       })
