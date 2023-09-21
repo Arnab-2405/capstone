@@ -79,7 +79,13 @@ export class BookingComponent {
     this.booking.bookAppointment(this.sharedData.vendorId, bookingData, this.headers).subscribe({
       next: (v) => {
         this.booking.updateBlockedDate(this.sharedData.vendorId, this.bookingDate.value, this.headers).subscribe({
-          next: (v) => { },
+          next: (v) => { 
+            this.booking.sendConfirmationEmail(localStorage.getItem('email')).subscribe({
+              next:(v)=>{},
+              error:(e)=>{},
+              complete:()=>{}
+            })
+          },
           error: (e) => { 
             var mssg = e.error.trace.split(".");
           var val = mssg[2];

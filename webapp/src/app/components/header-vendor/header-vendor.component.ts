@@ -57,7 +57,16 @@ export class HeaderVendorComponent {
       var value = secretInput.value;
       this.searchService.searchByParameter(this.selected, value).subscribe({
         next: (v) => { this.vendorPage.vendorList = v },
-        error: (e) => { },
+        error: (e) => {
+          if (this.selected !== '') {
+            this.snackbar.open('"We dont have any matching results"','Close')
+            this.selected='';
+            (document.getElementById('search-value') as HTMLInputElement).value = ''
+          }
+          else{
+            this.snackbar.open('"Please select a filter"','Close')
+          }
+         },
         complete: () => { }
       })
     }

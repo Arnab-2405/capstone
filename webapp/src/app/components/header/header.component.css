@@ -7,9 +7,9 @@ body {
 }
 
 .header {
-  background: rgb(232, 232, 232);
+  background: rgb(255, 255, 255);
   padding: 10px 0;
-  box-shadow: 0px 0px 10px black;
+  box-shadow: 0px 0px 1px black;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -18,6 +18,7 @@ body {
   align-items: center;
   height: fit-content;
 }
+
 .company-name {
   font-size: 2.5rem;
   font-weight: 600;
@@ -25,31 +26,27 @@ body {
   width: fit-content;
 }
 
-.exclaim{
+.exclaim {
   position: relative;
   display: flex;
   justify-content: flex-end;
   bottom: 1.5rem;
-
 }
 
-.search{
-  width: 100%;
+.search {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Align filter field and search bar on the same axis */
   align-items: center;
+  margin-right:10px;
 }
 
-.selections{
-  width: min-content;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.selections {
+  margin-right: 35px; /* Add space between filter field and search bar */
+  margin-top: 20px;
 }
 
-.search-icon{
-  margin: 1rem;
+.search-icon {
+  margin: 1rem 0.5rem; /* Reduce space between search button and refresh button */
   cursor: pointer;
 }
 
@@ -60,20 +57,21 @@ body {
 }
 
 .logo img {
-  width: 50px; /* Adjust the size as needed */
-  margin-right: 15px; /* Add spacing after the logo */
-  margin-left: 34px; /* Add spacing before the search field */
+  width: 50px;
+  margin-right: 15px;
+  margin-left: 20px;
 }
 
 .search input.search-field {
-  border: 1px solid #ccc; /* Add grey outline */
+  border: 1px solid #ccc;
   border-radius: 20px;
   padding: 10px;
-  width: 400px; /* Adjust the width as needed */
+  width: 400px;
+  margin-right: 20px;
 }
 
 .spacer {
-  width: 2rem; /* Add spacing between logo and search field */
+  width: 2rem;
 }
 
 .header-right {
@@ -82,7 +80,7 @@ body {
 }
 
 .header-link {
-  margin-right: 40px; /* Add spacing between links */
+  margin-right: 40px;
   cursor: pointer;
 }
 
@@ -108,8 +106,8 @@ body {
   border-radius: 10px;
   text-align: center;
   right: 0;
-  top: 5vh; /* Adjust the distance from the button */
-  white-space: nowrap; /* Prevent menu items from wrapping */
+  top: 5vh;
+  white-space: nowrap;
 }
 
 .profile-button:hover + .dropdown-content,
@@ -135,7 +133,7 @@ body {
 }
 
 .profile-nav a:hover {
-  background-color: #34d198; /* Highlight color on hover */
+  background-color: #34d198;
   color: #000000;
 }
 
@@ -143,7 +141,20 @@ body {
   color: #000000;
 }
 
-/* @media (max-width: 600px) {
+
+/* Decrease the width of the filter field */
+.mat-form-field {
+  width: 12rem;
+}
+
+/* Style the dropdown menu on hover */
+.mat-option:hover {
+  background-color: green; /* Change the background color */
+  color: white; /* Change the text color */
+}
+
+/* Ensure component layout remains stable when zooming in or out */
+@media (max-width: 600px) {
   .header {
     padding: 5px 0;
     justify-content: space-around;
@@ -178,5 +189,5 @@ body {
   .profile-dropdown {
     margin-right: 0;
     margin-top: 10px;
-  } */
-/* } */
+  }
+}

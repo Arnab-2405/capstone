@@ -19,4 +19,8 @@ export class BookingService {
   deleteServiceById(vendorId:any,headerData:any){
     return this.http.delete(`http://localhost:8080/vendor-data/${vendorId}`,{headers:headerData, responseType:'text'});
   }
+
+  sendConfirmationEmail(email:any){
+    return this.http.get(`http://localhost:8080/user/sendEmailNotification/${email}`,{responseType:'text'});
+  }
 }
