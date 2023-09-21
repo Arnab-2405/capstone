@@ -12,6 +12,9 @@ import { VendorDataService } from 'src/app/services/vendor-data.service';
   styleUrls: ['./admin-view.component.css'],
 })
 export class AdminViewComponent {
+
+  public showApiHealth:boolean=false;
+
   public vendorList: any;
   public vendorBase: any;
 
@@ -28,71 +31,77 @@ export class AdminViewComponent {
   constructor(
     private dataService: VendorDataService,
     private userService: UserDataService,
-    private router :Router,
-    private snackbar:MatSnackBar
+    private router: Router,
+    private snackbar: MatSnackBar
   ) { }
 
+  changeView(){
+  //  this.router.navigate(['admin','dashboard'])
+  this.showApiHealth=!this.showApiHealth
+  }
+
+  changeView2(){
+    this.router.navigate(['admin','dashboard'])
+   }
+
   ngOnInit() {
-    if(localStorage.getItem('role')==='admin'){
-      
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
+    if (localStorage.getItem('role') === 'admin') {
 
-    this.userService.getAllUsers(headers).subscribe({
-      next: (v) => { this.userBase = v.length },
-      error: (e) => {
-        var mssg=e.error.trace.split(".");
-        var val=mssg[2];
-        val=val.split(":");
-        val=val[0]
-        console.log(val)
-        if(val==='ExpiredJwtException')
-        {
-          this.snackbar.open('Session Expired, login again','close') 
-        }
-        else{
-          this.snackbar.open('Internal Server Error','close') 
-        }
-       },
-      complete: () => { this.vendor_user_pie_chart(); },
-    });
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
 
-    this.dataService.getVendorData(headers).subscribe({
-      next: (v) => {
-        this.vendorList = v;
-        this.vendorBase = this.vendorList.length;
-        this.populateMap();
-        this.vendor_location_base();
-        this.checkPricesInEachCity();
-        this.city_price_chart();
-      },
-      error: (e) => { 
-        var mssg=e.error.trace.split(".");
-        var val=mssg[2];
-        val=val.split(":");
-        val=val[0]
-        if(val==='ExpiredJwtException')
-        {
-          this.snackbar.open('Session Expired, login again','close') 
-        }
-        else{
-          this.snackbar.open('Internal Server Error','close') 
-        }
-      },
-      complete: () => {
-        this.pushDataToArrays();
-        this.pushToArrays2();
-      },
-    });
+      this.userService.getAllUsers(headers).subscribe({
+        next: (v) => { this.userBase = v.length },
+        error: (e) => {
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+        },
+        complete: () => { this.vendor_user_pie_chart(); },
+      });
+
+      this.dataService.getVendorData(headers).subscribe({
+        next: (v) => {
+          this.vendorList = v;
+          this.vendorBase = this.vendorList.length;
+          this.populateMap();
+          this.vendor_location_base();
+          this.checkPricesInEachCity();
+          this.city_price_chart();
+        },
+        error: (e) => {
+          var mssg = e.error.trace.split(".");
+          var val = mssg[2];
+          val = val.split(":");
+          val = val[0]
+          if (val === 'ExpiredJwtException') {
+            this.snackbar.open('Session Expired, login again', 'close')
+          }
+          else {
+            this.snackbar.open('Internal Server Error', 'close')
+          }
+        },
+        complete: () => {
+          this.pushDataToArrays();
+          this.pushToArrays2();
+        },
+      });
     }
-    else{
-      this.snackbar.open('Administrative priviliges are required','Close')
+    else {
+      this.snackbar.open('Administrative priviliges are required', 'Close')
     }
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
     this.router.navigate(['']);
   }
