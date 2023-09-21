@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
@@ -15,23 +15,41 @@ export class VendorRegisterComponent {
   public vendorRegistrationForm!: FormGroup;
   public vendorname: any = '';
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private vendorService: VendorDataService, private parent: LandingActualVendorComponent,private snackbar:MatSnackBar) { }
+  currentDate: Date = new Date();
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private vendorService: VendorDataService, private parent: LandingActualVendorComponent, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.vendorname = localStorage.getItem('username');
     this.vendorRegistrationForm = this.formBuilder.group({
-      email:[localStorage.getItem('email')],
+      email: [localStorage.getItem('email')],
       vendorName: [localStorage.getItem('username')],
       serviceType: ['', Validators.required],
       description: [''],
-      price: ['',[Validators.required, Validators.pattern('^[0-9]+$')]],
+      price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       location: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-    });
+    }, { validator: this.dateRangeValidator });
 
     const currentDate = new Date().toISOString().split('T')[0];
     document.getElementById('past-date')?.setAttribute('min', currentDate);
+  }
+
+  dateRangeValidator(control: AbstractControl): ValidationErrors | null {
+    const startDateControl = control.get('startDate');
+    const endDateControl = control.get('endDate');
+
+    if (startDateControl && endDateControl) {
+      const startDate = startDateControl.value;
+      const endDate = endDateControl.value;
+
+      if (startDate && endDate && startDate > endDate) {
+        return { invalidDateRange: true };
+      }
+    }
+
+    return null;
   }
 
   registerVendor() {
@@ -41,7 +59,7 @@ export class VendorRegisterComponent {
     });
     this.vendorService.addVendor(this.vendorRegistrationForm.value, headers)
       .subscribe({
-        next: (v) => { this.snackbar.open('Service added successfully','Close');},
+        next: (v) => { this.snackbar.open('Service added successfully', 'Close'); },
         error: (e) => {
           var mssg = e.error.trace.split(".");
           var val = mssg[2];

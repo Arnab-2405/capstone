@@ -53,8 +53,8 @@ export class AdminViewComponent {
 
       this.userService.getAllUsers(headers).subscribe({
         next: (v) => { this.userBase = v.length },
-        error: (e) => {
-          var mssg = e.error.trace.split(".");
+        error: (er) => {
+          var mssg = er.error.trace.split(".");
           var val = mssg[2];
           val = val.split(":");
           val = val[0]
@@ -77,8 +77,8 @@ export class AdminViewComponent {
           this.checkPricesInEachCity();
           this.city_price_chart();
         },
-        error: (e) => {
-          var mssg = e.error.trace.split(".");
+        error: (er) => {
+          var mssg = er.error.trace.split(".");
           var val = mssg[2];
           val = val.split(":");
           val = val[0]

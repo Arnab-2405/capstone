@@ -10,13 +10,15 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class OrderServiceService {
+
+	public port:any=8001;
   
   constructor(private http: HttpClient) {
 
 	}
   
   createOrder(order:any): Observable<any> {
-		return this.http.post("http://localhost:8080/pg/createOrder", {
+		return this.http.post(`http://localhost:${this.port}/pg/createOrder`, {
 		customerName: order.name,
 		email: order.email,
 		phoneNumber: order.phone,

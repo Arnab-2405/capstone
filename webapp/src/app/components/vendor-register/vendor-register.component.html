@@ -76,6 +76,7 @@
                   formControlName="startDate"
                   [matDatepicker]="startDatePicker"
                   placeholder="You are available from..."
+                  [min]="currentDate"
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -91,6 +92,7 @@
                   formControlName="endDate"
                   [matDatepicker]="endDatePicker"
                   placeholder="You are available till..."
+                  [min]="currentDate"
                 />
                 <mat-datepicker-toggle
                   matSuffix

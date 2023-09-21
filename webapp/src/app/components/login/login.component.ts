@@ -32,7 +32,7 @@ export class LoginComponent {
   }
 
   gotoForgotPass() {
-    this.router.navigate(['']) //TODO Navigate to reset password
+    this.router.navigate(['']) 
   }
 
   gotoSignup() {

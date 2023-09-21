@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class SearchService {
 
+  public port:any=8001;
+
   constructor(private http:HttpClient) { }
 
   searchByParameter(parameter:any, filter:any){
-    return this.http.get(`http://localhost:8080/search/${parameter}/${filter}`);
+    return this.http.get(`http://localhost:${this.port}/search/${parameter}/${filter}`);
   }
 }

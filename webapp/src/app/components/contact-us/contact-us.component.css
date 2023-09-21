@@ -34,6 +34,7 @@
 }
 
 .top {
+  text-transform: capitalize;
   margin-top: 10%;
   font-size: 6rem;
   font-weight: 600;
@@ -42,6 +43,7 @@
 }
 
 .bottom {
+  text-transform: capitalize;
   font-size: 6rem;
   font-weight: 600;
   text-align: center;

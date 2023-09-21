@@ -1,11 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EmailVerifyService } from 'src/app/services/email-verify.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-profile',
@@ -13,7 +14,9 @@ import { EmailVerifyService } from 'src/app/services/email-verify.service';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent {
-  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router, private location: Location, private snackbar: MatSnackBar, private email: EmailVerifyService) { }
+  constructor(private data: UserDataService, private formBuilder: FormBuilder, private router: Router, private location: Location, private snackbar: MatSnackBar, private email: EmailVerifyService) {
+    this.emailVerified = false;
+  }
 
   public authForm!: FormGroup;
   public userForm!: FormGroup;
@@ -22,7 +25,11 @@ export class UpdateProfileComponent {
   public authData: any;
   public userData: any;
 
-  public emailVerified: boolean | undefined;
+  public test: any = 'hie'
+  public emailVerified!: boolean;
+
+  isResendDisabled: boolean = false;
+  countdown: number = 60;
 
   public headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -35,9 +42,9 @@ export class UpdateProfileComponent {
       email: ['', [Validators.required, Validators.email]]
     })
     this.userForm = this.formBuilder.group({
-      dob: ['', Validators.required],
+      dob: ['', Validators.required, this.dateNotExceedsCurrent.bind(this)],
       gender: ['', [Validators.required]],
-      phoneNumber: [''],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.maxLength(10)]],
       address: ['']
     })
     this.getDataFromBackend();
@@ -45,13 +52,39 @@ export class UpdateProfileComponent {
 
   getOtp() {
     this.email.getOtp(localStorage.getItem('email')).subscribe({
-      next: (v) => {
-        console.log(v)
-        this.snackbar.open('OTP sent to registered mail', 'Close')
+      next: (response: any) => {
+        console.log('OTP sent successfully', response);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 5000,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'OTP Sent successfully'
+        })
       },
-      error: (e) => { this.snackbar.open('Error while sending Otp', 'Close') },
-      complete: () => { }
-    })
+      error: (error) => {
+        console.error('Error sending OTP:', error);
+        Swal.fire('Error', 'Failed to send OTP', 'error');
+      },
+    });
+    this.isResendDisabled = true;
+
+    const timerInterval = setInterval(() => {
+      this.countdown--;
+      if (this.countdown === 0) {
+        clearInterval(timerInterval);
+        this.isResendDisabled = false;
+        this.countdown = 60;
+      }
+    }, 1000);
   }
 
   verifyOtp() {
@@ -73,17 +106,29 @@ export class UpdateProfileComponent {
     this.location.back();
   }
 
+  dateNotExceedsCurrent(control: AbstractControl): ValidationErrors | null {
+    const selectedDate = control.value;
+
+    // Get the current date
+    const currentDate = new Date();
+
+    if (selectedDate > currentDate) {
+      return { exceedsCurrentDate: true };
+    }
+
+    return null;
+  }
+
   onSubmit() {
     var secondLogin = localStorage.getItem('secondLogin');
-
     if (secondLogin === "true") {
-      this.data.updateUserData(this.userForm.value, localStorage.getItem('email'), this.headers).subscribe({
+      this.data.updateUserData({ ...this.userForm.value, emailVerified: this.emailVerified }, localStorage.getItem('email'), this.headers).subscribe({
         next: (v) => {
           const birth = new Date(v.dob)
           this.userForm = this.formBuilder.group({
-            dob: [birth, [Validators.required]],
+            dob: [birth, [Validators.required, this.dateNotExceedsCurrent.bind(this)]],
             gender: [v.gender, [Validators.required]],
-            phoneNumber: [v.phoneNumber, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+            phoneNumber: [v.phoneNumber, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.maxLength(10)]],
             address: [v.address, [Validators.required]]
           })
         },
@@ -126,14 +171,14 @@ export class UpdateProfileComponent {
       })
     }
     else {
-      this.data.addUserData({ ...this.userForm.value, email: localStorage.getItem('email') }, this.headers).subscribe({
+      this.data.addUserData({ ...this.userForm.value, email: localStorage.getItem('email'), emailVerified: this.emailVerified }, this.headers).subscribe({
         next: (v) => {
 
           const birth = new Date(v.dob)
           this.userForm = this.formBuilder.group({
-            dob: [birth, [Validators.required]],
+            dob: [birth, [Validators.required, this.dateNotExceedsCurrent.bind(this)]],
             gender: [v.gender, [Validators.required]],
-            phoneNumber: [v.phoneNumber, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+            phoneNumber: [v.phoneNumber, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.maxLength(10)]],
             address: [v.address, [Validators.required]]
           });
         },
@@ -155,8 +200,11 @@ export class UpdateProfileComponent {
 
     if (localStorage.getItem('role') === 'vendor') {
       this.router.navigate(['landing', 'vendor'])
-    } else {
+    } else if (localStorage.getItem('role') === 'user') {
       this.router.navigate(['landing', 'user'])
+    }
+    else if (localStorage.getItem('role') === 'admin') {
+      this.router.navigate(['admin', 'dashboard'])
     }
   }
 
@@ -187,9 +235,9 @@ export class UpdateProfileComponent {
         const birth = new Date(v.dob)
         this.emailVerified = v.emailVerified;
         this.userForm = this.formBuilder.group({
-          dob: [birth, [Validators.required]],
+          dob: [birth, [Validators.required, this.dateNotExceedsCurrent.bind(this)]],
           gender: [v.gender, [Validators.required]],
-          phoneNumber: [v.phoneNumber, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+          phoneNumber: [v.phoneNumber, [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.maxLength(10)]],
           address: [v.address, [Validators.required]]
         })
       },
