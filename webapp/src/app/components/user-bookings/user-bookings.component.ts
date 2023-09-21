@@ -33,6 +33,7 @@ export class UserBookingsComponent {
               this.jobsArray.forEach((ele: any) => {
                 if (ele.userId === localStorage.getItem('email')) {
                   this.bookings.push({
+                    "vendorId":element.vendorId,
                     "bookingDate": ele.blockedDate,
                     "serviceType": element.serviceType,
                     "price": element.price,

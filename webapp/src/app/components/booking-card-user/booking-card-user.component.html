@@ -28,8 +28,26 @@
               Provider Name - <span id="name">{{ booking.vendorName }}</span>
             </h5>
             <p class="card-text">
-              Description - <span id="description">{{ booking.description }}</span>
+              Description -
+              <span id="description">{{ booking.description }}</span>
             </p>
+            <div class="feedback">
+              <button class="btn btn-primary" (click)="display()">
+                Give Feedback
+              </button>
+              <form action="" [formGroup]="feedbackForm" (ngSubmit)="submit()">
+                <mat-form-field *ngIf="show">
+                  <mat-label>Write a review</mat-label>
+                  <input matInput formControlName="message" />
+                </mat-form-field>
+                <button class="btn btn-danger" (click)="display()" *ngIf="show">
+                  Cancel
+                </button>
+                <button class="btn btn-success" *ngIf="show">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </div>
         <div class="card-footer">

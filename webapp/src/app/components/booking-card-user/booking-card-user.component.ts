@@ -1,5 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FeedbackService } from 'src/app/services/feedback.service';
 import { VendorDataService } from 'src/app/services/vendor-data.service';
 
 @Component({
@@ -13,10 +16,15 @@ export class BookingCardUserComponent {
 
   public bookingDate: any;
 
+  public show:any=false;
 
-
+  public feedbackForm!:FormGroup;
   public lastUpdatedText: any;
   public startTime = new Date();
+
+  constructor(private feedback:FeedbackService,private fb:FormBuilder,private snackbar:MatSnackBar){
+
+  }
 
   public updateLastUpdatedText = () => {
     const currentTime = new Date();
@@ -32,10 +40,28 @@ export class BookingCardUserComponent {
     'Painting': 'assets/images/painting.svg',
   };
 
+  display(){
+    this.show=!this.show
+  }
+
+  submit(){
+    this.show=!this.show;
+
+    this.feedback.postFeedback(this.booking.vendorId,this.feedbackForm.value).subscribe({
+      next:(v)=>{this.snackbar.open('Feedback sent successfully','Close')},
+      error:(e)=>{this.snackbar.open('Feedback was not sent','Close')},
+      complete:()=>{}
+    })
+  }
+
   ngOnInit() {
     this.updateLastUpdatedText();
     setInterval(this.updateLastUpdatedText, 15000/2); // 60000 ms = 1 minute
-
     this.bookingDate=new Date(this.booking.bookingDate).toDateString();
+
+
+    this.feedbackForm=this.fb.group({
+      message:['',Validators.required]
+    })
   }
 }

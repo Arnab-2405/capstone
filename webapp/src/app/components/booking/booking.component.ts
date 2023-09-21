@@ -7,6 +7,7 @@ import { min } from 'rxjs';
 import { BookingService } from 'src/app/services/booking.service';
 import { HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-booking',
@@ -16,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class BookingComponent {
 
   constructor(private formBuilder: FormBuilder, private landing: LandingVendorComponent, private sharingService: SharedDataService, private router: Router, private booking: BookingService,
-    private snackbar:MatSnackBar) { }
+    private snackbar: MatSnackBar, private feedback: FeedbackService) { }
 
   public bookingDate!: FormGroup;
 
@@ -24,6 +25,7 @@ export class BookingComponent {
   public datesToDisable!: Date[];
   public minDate: any;
   public maxDate: any;
+  public feedbacks: any = [];
 
   public headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -39,8 +41,8 @@ export class BookingComponent {
 
     this.datesToDisable = []
     for (var i = 0; i < length; i++) {
-      const dateArray=this.sharedData.bookedDates[i].blockedDate;
-      const dateObject=new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
+      const dateArray = this.sharedData.bookedDates[i].blockedDate;
+      const dateObject = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
       this.datesToDisable.push(dateObject);
     }
 
@@ -49,6 +51,12 @@ export class BookingComponent {
       this.minDate = new Date();
     }
     this.maxDate = new Date(this.sharedData.endDate);
+
+    this.feedback.loadFeedbacks(this.sharedData.vendorId).subscribe({
+      next: (v) => { this.feedbacks = v },
+      error: (e) => { this.snackbar.open('Error Loading feedbacks', 'Close') },
+      complete: () => { }
+    })
 
   }
 
@@ -79,40 +87,40 @@ export class BookingComponent {
     this.booking.bookAppointment(this.sharedData.vendorId, bookingData, this.headers).subscribe({
       next: (v) => {
         this.booking.updateBlockedDate(this.sharedData.vendorId, this.bookingDate.value, this.headers).subscribe({
-          next: (v) => { 
+          next: (v) => {
             this.booking.sendConfirmationEmail(localStorage.getItem('email')).subscribe({
-              next:(v)=>{},
-              error:(e)=>{},
-              complete:()=>{}
+              next: (v) => { },
+              error: (e) => { },
+              complete: () => { }
             })
           },
-          error: (e) => { 
+          error: (e) => {
             var mssg = e.error.trace.split(".");
-          var val = mssg[2];
-          val = val.split(":");
-          val = val[0]
-          if (val === 'ExpiredJwtException') {
-            this.snackbar.open('Session Expired, login again', 'close')
-          }
-          else {
-            this.snackbar.open('Internal Server Error', 'close')
-          }
-           },
+            var val = mssg[2];
+            val = val.split(":");
+            val = val[0]
+            if (val === 'ExpiredJwtException') {
+              this.snackbar.open('Session Expired, login again', 'close')
+            }
+            else {
+              this.snackbar.open('Internal Server Error', 'close')
+            }
+          },
           complete: () => { }
         })
       },
       error: (e) => {
         var mssg = e.error.trace.split(".");
-          var val = mssg[2];
-          val = val.split(":");
-          val = val[0]
-          if (val === 'ExpiredJwtException') {
-            this.snackbar.open('Session Expired, login again', 'close')
-          }
-          else {
-            this.snackbar.open('Internal Server Error', 'close')
-          }
-       },
+        var val = mssg[2];
+        val = val.split(":");
+        val = val[0]
+        if (val === 'ExpiredJwtException') {
+          this.snackbar.open('Session Expired, login again', 'close')
+        }
+        else {
+          this.snackbar.open('Internal Server Error', 'close')
+        }
+      },
       complete: () => { this.router.navigate(['payment']); }
     })
 
