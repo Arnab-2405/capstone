@@ -14,7 +14,7 @@ export class HeaderComponent {
   constructor(private router: Router,
     private searchService: SearchService,
     private snackbar: MatSnackBar,
-    private vendorPage:LandingVendorComponent
+    private vendorPage: LandingVendorComponent
   ) { }
 
   public username: any = localStorage.getItem('username')
@@ -56,8 +56,17 @@ export class HeaderComponent {
     if (secretInput.value !== null && this.selected !== '') {
       var value = secretInput.value;
       this.searchService.searchByParameter(this.selected, value).subscribe({
-        next: (v) => { this.vendorPage.vendorList=v},
-        error: (e) => { },
+        next: (v) => { this.vendorPage.vendorList = v },
+        error: (e) => {
+          if (this.selected !== '') {
+            this.snackbar.open('"We dont have any matching results"','Close')
+            this.selected='';
+            (document.getElementById('search-value') as HTMLInputElement).value = ''
+          }
+          else{
+            this.snackbar.open('"Please select a filter"','Close')
+          }
+        },
         complete: () => { }
       })
     }

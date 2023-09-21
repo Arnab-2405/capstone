@@ -9,14 +9,14 @@ export class BookingService {
   constructor(private http: HttpClient) { }
 
   bookAppointment(vendorId: any, data: any, headerData: any) {
-    return this.http.put(`http://localhost:9090/vendor-data/book/job/${vendorId}`, data, { headers: headerData })
+    return this.http.put(`http://localhost:8080/vendor-data/book/job/${vendorId}`, data, { headers: headerData })
   }
 
   updateBlockedDate(vendorId:any,data:any,headerData:any){
-    return this.http.put(`http://localhost:9090/vendor-data/book/${vendorId}`,data,{headers:headerData, responseType:'text'});
+    return this.http.put(`http://localhost:8080/vendor-data/book/${vendorId}`,data,{headers:headerData, responseType:'text'});
   }
 
   deleteServiceById(vendorId:any,headerData:any){
-    return this.http.delete(`http://localhost:9090/vendor-data/${vendorId}`,{headers:headerData, responseType:'text'});
+    return this.http.delete(`http://localhost:8080/vendor-data/${vendorId}`,{headers:headerData, responseType:'text'});
   }
 }

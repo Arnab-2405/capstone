@@ -10,6 +10,6 @@ export class SearchService {
   constructor(private http:HttpClient) { }
 
   searchByParameter(parameter:any, filter:any){
-    return this.http.get(`http://localhost:8065/search/${parameter}/${filter}`);
+    return this.http.get(`http://localhost:8080/search/${parameter}/${filter}`);
   }
 }
