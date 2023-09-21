@@ -8,12 +8,13 @@
   <body>
     <app-header-admin style="position: sticky; top: 0; border: 0"></app-header-admin>
     <div class="content">
+      <app-back-btn></app-back-btn>
       <div class="navigation">
         <ul>
           <li (click)="changeView()">
             <a class="nav"><mat-icon>dashboard</mat-icon>Dashboard</a>
           </li>
-          <li (click)="changeView()">
+          <li (click)="changeView1()">
             <a class="nav"><mat-icon>medical_services</mat-icon>API Health</a>
           </li>
           <li>
@@ -55,6 +56,8 @@
           </div>
         </div>
       </div>
+      <app-scroll-up></app-scroll-up>
     </div>
+    <app-footer></app-footer>
   </body>
 </html>

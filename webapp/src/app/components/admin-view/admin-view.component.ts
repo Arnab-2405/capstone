@@ -36,12 +36,11 @@ export class AdminViewComponent {
   ) { }
 
   changeView(){
-  //  this.router.navigate(['admin','dashboard'])
-  this.showApiHealth=!this.showApiHealth
+   this.router.navigate(['admin','dashboard'])
   }
 
-  changeView2(){
-    this.router.navigate(['admin','dashboard'])
+  changeView1(){
+    this.router.navigate(['admin','api-health'])
    }
 
   ngOnInit() {

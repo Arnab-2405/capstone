@@ -52,6 +52,7 @@ import { ScrollUpComponent } from './components/scroll-up/scroll-up.component';
 import { HeaderVendorComponent } from './components/header-vendor/header-vendor.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { CommonHeaderComponent } from './components/common-header/common-header.component';
+import { ApiHealthComponent } from './components/api-health/api-health.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { CommonHeaderComponent } from './components/common-header/common-header.
     ScrollUpComponent,
     HeaderVendorComponent,
     HeaderAdminComponent,
-    CommonHeaderComponent,    
+    CommonHeaderComponent,
+    ApiHealthComponent,    
   ],
   imports: [
     BrowserModule,
