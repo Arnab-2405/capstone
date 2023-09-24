@@ -43,8 +43,4 @@ export class LandingVendorComponent {
       this.snackbar.open('User privilges are required', 'Close');
     }
   }
-
-  searchByLocation(location: any) {
-
-  }
 }

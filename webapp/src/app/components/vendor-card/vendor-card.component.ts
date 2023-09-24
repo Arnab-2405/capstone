@@ -61,16 +61,19 @@ export class VendorCardComponent {
     const year2 = this.datePosted.getFullYear();
     this.datePosted = `${day2} ${monthNames[month2-1]} ${year2}`;
 
-    this.startDate = this.data.startDate;
-    const year0 = this.startDate[0];
-    const month0 = this.startDate[1];
-    const day0 = this.startDate[2];
-    this.startDate = `${day0} ${monthNames[month0-1]} ${year0}`;
+    // this.startDate = this.data.startDate;
+    // const year0 = this.startDate[0];
+    // const month0 = this.startDate[1];
+    // const day0 = this.startDate[2];
+    // this.startDate = `${day0} ${monthNames[month0-1]} ${year0}`;
 
-    this.endDate = this.data.endDate;
-    const year1 = this.endDate[0];
-    const month1 = this.endDate[1];
-    const day1 = this.endDate[2];
-    this.endDate = `${day1} ${monthNames[month1-1]} ${year1}`;
+    // this.endDate = this.data.endDate;
+    // const year1 = this.endDate[0];
+    // const month1 = this.endDate[1];
+    // const day1 = this.endDate[2];
+    // this.endDate = `${day1} ${monthNames[month1-1]} ${year1}`;
+
+    this.startDate=new Date(this.data.startDate).toDateString();
+    this.endDate=new Date(this.data.endDate).toDateString();
   }
 }

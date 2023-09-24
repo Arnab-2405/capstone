@@ -89,6 +89,7 @@ export class LoginComponent {
       error: (e) => {
         this.snackbar.open(e.error, 'Close');
         this.loginForm.reset();
+        console.log(e)
       },
       complete: () => {
         this.loginForm.reset();
