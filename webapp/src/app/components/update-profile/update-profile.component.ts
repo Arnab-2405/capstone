@@ -210,7 +210,7 @@ export class UpdateProfileComponent {
 
   //TODO
   changePass() {
-    this.router.navigate([''])
+    this.router.navigate(['forgot-password'])
   }
 
   getDataFromBackend() {

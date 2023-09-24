@@ -15,6 +15,7 @@ import { VendorRegisterComponent } from './components/vendor-register/vendor-reg
 import { VendorBookingsComponent } from './components/vendor-bookings/vendor-bookings.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { ApiHealthComponent } from './components/api-health/api-health.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'update-profile', component: UpdateProfileComponent },
   { path: 'policies', component: PoliciesComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   {
     path: 'landing',
     children: [

@@ -32,7 +32,7 @@ export class LoginComponent {
   }
 
   gotoForgotPass() {
-    this.router.navigate(['']) 
+    this.router.navigate(['forgot-password']) 
   }
 
   gotoSignup() {
@@ -87,9 +87,8 @@ export class LoginComponent {
         }
       },
       error: (e) => {
-        this.snackbar.open(e.error, 'Close');
+        this.snackbar.open("Something went wrong", 'Close');
         this.loginForm.reset();
-        console.log(e)
       },
       complete: () => {
         this.loginForm.reset();

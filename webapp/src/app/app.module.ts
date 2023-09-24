@@ -53,6 +53,7 @@ import { HeaderVendorComponent } from './components/header-vendor/header-vendor.
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { CommonHeaderComponent } from './components/common-header/common-header.component';
 import { ApiHealthComponent } from './components/api-health/api-health.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { ApiHealthComponent } from './components/api-health/api-health.component
     HeaderVendorComponent,
     HeaderAdminComponent,
     CommonHeaderComponent,
-    ApiHealthComponent,    
+    ApiHealthComponent,
+    ForgotPasswordComponent,    
   ],
   imports: [
     BrowserModule,
